@@ -45,6 +45,13 @@ Note: any other paths will do too, you will just need to adapt for that in the `
 0.  Enter `%PROJ_DIR%/script/`
 0.  Execute `exec_tracker.sh`
 
+
+### Tracker settings
+* `SEGM_INPUTS` - Which inputs? Mask Proposal R-CNN (mprcnn_coco; recommended), Sharpmask (sharpmask_coco), Mask R-CNN fine-tuned on KITTI (mrcnn_tuned) 
+* `INF_MODEL` - Specify which model should be used for inference - 4DGVT (recommended) or CAMOT.
+* `INPUT_CONF_THRESH` - Detection/proposal score threshold. In case it is set to 0.8 or more, you will be only getting confident detections.
+* `MAX_NUM_PROPOSALS` - Max. proposals fed to track generator per frame. More proposals -> slower, higher recall. Not recommended to be set above 500.
+
 ## Remarks
 
 * Running CAMOT or 4DGVT
