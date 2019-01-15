@@ -47,18 +47,22 @@ Note: any other paths will do too, you will just need to adapt for that in the `
 
 
 ### Tracker settings
-* `SEGM_INPUTS` - Which inputs? Mask Proposal R-CNN (mprcnn_coco; recommended), Sharpmask (sharpmask_coco), Mask R-CNN fine-tuned on KITTI (mrcnn_tuned) 
-* `INF_MODEL` - Specify which model should be used for inference - 4DGVT (recommended) or CAMOT.
-* `INPUT_CONF_THRESH` - Detection/proposal score threshold. In case it is set to 0.8 or more, you will be only getting confident detections.
+* `SEGM_INPUTS` - Specify which pre-computed segmentations to use -- Mask Proposal R-CNN (`mprcnn_coco`; recommended), Sharpmask (`sharpmask_coco`), Mask R-CNN fine-tuned on KITTI (`mrcnn_tuned`) 
+* `INF_MODEL` - Specify which model should be used for inference - `4DGVT` (recommended) or `CAMOT`.
+* `INPUT_CONF_THRESH` - Detection/proposal score threshold. In case it is set to `0.8` or more, you will be only forwarding confident detections.
 * `MAX_NUM_PROPOSALS` - Max. proposals fed to track generator per frame. More proposals -> slower, higher recall. Not recommended to be set above 500.
 
 ## Remarks
 
-* Running CAMOT or 4DGVT
+* Running CAMOT vs. 4DGVT
     * TODO
 
 * Inputs to the tracker
-    * TODO
+    * You can use our [precomputed segmentations](https://drive.google.com/open?id=1AmDVzanSeHvmgJ4nh36jByOH-qIsib_2) for KITTI
+    * Provide your own using:
+        * Sharpmask [repo](https://github.com/facebookresearch/deepmask)
+        * Our Mask Proposal R-CNN (MP R-CNN) [repo](https://github.com/aljosaosep/mprcnn)
+        * You can also use MaskX R-CNN, trained on 3K+ classes on Visual Genome dataset [project page + code](http://ronghanghu.com/seg_every_thing/)
 
 * External libraries
     * The tracker ships the following external modules:
