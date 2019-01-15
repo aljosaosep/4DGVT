@@ -1,2 +1,83 @@
-# 4DGVT
-Contains 4DGVT code
+# 4D Generic Video Object Proposals
+# Track, then Decide: Category-Agnostic Vision-based Multi-Object Tracking
+
+This repository contains code for the tracking system as described in
+**Track, then Decide: Category-Agnostic Vision-based Multi-Object Tracking. ICRA 2018. (https://arxiv.org/pdf/1712.07920.pdf)**
+and **4D Generic Video Object Proposals** (Under review)
+
+By Aljosa Osep, Wolfgang Mehner, Paul Voigtlaender, Jonathon Luiten, Mark Weber, Bastian Leibe Computer Vision Group, RWTH Aachen University
+
+## Demo  Video
+TODO
+
+## Prerequisite
+
+In order to run the code, your setup has to meet the following minimum requirements (tested versions in parentheses. Other versions might work, too):
+* GCC 5.4.0
+  * Eigen (3.x)
+  * Boost (1.55 or later)
+  * OpenCV (3.0.0 + OpenCV contrib)
+  * PCL (1.8.0)
+
+## Install
+
+### Compiling the code using CMake
+0.  `mkdir build`
+0.  `cmake ..`
+0.  `make all`
+
+### Running the tracker
+0.  Enter `%PROJ_DIR%/script/`
+0.  Execute `exec_tracker.sh`
+
+## Remarks
+
+* Running CAMOT or 4DGVT
+    * TODO
+
+* Inputs to the tracker
+    * TODO
+
+* External libraries
+    * The tracker ships the following external modules:
+        * **libelas** - disparity estimation (http://www.cvlibs.net/software/libelas/)
+        * **libviso2** - egomotion estimation (http://www.cvlibs.net/software/libviso/)
+        * **nlohman::json** - json parser (https://github.com/nlohmann/json)
+        * **maskApi** - COCO mask API for C (https://github.com/cocodataset/cocoapi)
+
+* Additional remarks about CAMOT
+    * TODO
+
+
+* Run the tracker in `release` mode (oterwise it will be slow).
+
+If you have any issues or questions about the code, please contact me https://www.vision.rwth-aachen.de/person/13/
+
+## Citing
+
+If you find the tracker useful in your research, please consider citing:
+
+    @article{Osep18ICRA,
+      author = {O\v{s}ep, Aljo\v{s}a and Mehner, Wolfgang and Voigtlaender, Paul and Leibe, Bastian},
+      title = {Track, then Decide: Category-Agnostic Vision-based Multi-Object Tracking},
+      journal = {ICRA},
+      year = {2018}
+    }
+
+    @article{Osep19arxiv,
+      author = {O\v{s}ep, Aljo\v{s}a and Voigtlaender, Paul and Luiten, Jonathon and Weber, Mark and Leibe, Bastian},
+      title = {4D Generic Video Object Proposals},
+      journal = {arXiv preprint arXiv:TBA},
+      year = {2019}
+    }
+
+## License
+
+GNU General Public License (http://www.gnu.org/licenses/gpl.html)
+
+Copyright (c) 2017 Aljosa Osep
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
