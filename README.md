@@ -2,8 +2,12 @@
 # Track, then Decide: Category-Agnostic Vision-based Multi-Object Tracking
 
 This repository contains code for the tracking system as described in
+
 **Track, then Decide: Category-Agnostic Vision-based Multi-Object Tracking. ICRA 2018. (https://arxiv.org/pdf/1712.07920.pdf)**
-and **4D Generic Video Object Proposals** (Under review)
+
+and 
+
+**4D Generic Video Object Proposals** (Under review, coming to arxiv soon)
 
 By Aljosa Osep, Wolfgang Mehner, Paul Voigtlaender, Jonathon Luiten, Mark Weber, Bastian Leibe Computer Vision Group, RWTH Aachen University
 
@@ -20,6 +24,13 @@ In order to run the code, your setup has to meet the following minimum requireme
   * PCL (1.8.0)
 
 ## Install
+
+### Data
+Note: any other paths will do too, you will just need to adapt for that in the `%ROOT$/script/exec_tracker.sh`
+
+0. Download [KITTI tracking dataset](http://www.cvlibs.net/datasets/kitti/eval_tracking.php) and place it to `/home/${USER}/data/kitti_tracking`
+0. Download [precomputed segmentations](https://drive.google.com/open?id=1AmDVzanSeHvmgJ4nh36jByOH-qIsib_2) we provide for KITTI tracking dataset, unzip to `/home/${USER}/data/kitti_tracking/preproc`
+0. Clone this repo to `/home/${USER}/projects`
 
 ### Compiling the code using CMake
 0.  `mkdir build`
