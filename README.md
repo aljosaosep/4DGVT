@@ -5,11 +5,13 @@ This repository contains code for the tracking system as described in
 
 **Track, then Decide: Category-Agnostic Vision-based Multi-Object Tracking. ICRA 2018. (https://arxiv.org/pdf/1712.07920.pdf)**
 
+By [Aljosa Osep](https://www.vision.rwth-aachen.de/person/13/), [Wolfgang Mehner](https://www.vision.rwth-aachen.de/person/7/), [Paul Voigtlaender](https://www.vision.rwth-aachen.de/person/197/), [Bastian Leibe](https://www.vision.rwth-aachen.de/person/1/), Computer Vision Group, RWTH Aachen University
+
 and 
 
 **4D Generic Video Object Proposals** (Under review, coming to arxiv soon)
 
-By [Aljosa Osep](https://www.vision.rwth-aachen.de/person/13/), [Wolfgang Mehner](https://www.vision.rwth-aachen.de/person/7/), [Paul Voigtlaender](https://www.vision.rwth-aachen.de/person/197/), [Jonathon Luiten](https://www.vision.rwth-aachen.de/person/216/), Mark Weber, [Bastian Leibe](https://www.vision.rwth-aachen.de/person/1/), Computer Vision Group, RWTH Aachen University
+By [Aljosa Osep](https://www.vision.rwth-aachen.de/person/13/), [Paul Voigtlaender](https://www.vision.rwth-aachen.de/person/197/), [Jonathon Luiten](https://www.vision.rwth-aachen.de/person/216/), Mark Weber, [Bastian Leibe](https://www.vision.rwth-aachen.de/person/1/), Computer Vision Group, RWTH Aachen University
 
 ## Demo  Video
 TODO
