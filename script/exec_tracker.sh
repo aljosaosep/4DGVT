@@ -1,12 +1,10 @@
 #!/bin/bash
 
-# This script executes the video-proposal generator / tracker
-# on sequences of KITTI tracking dataset.
-# You can specify which KITTI sequences you want to process (0-20)
-# and how many do you want to process in parallel.
+# This script executes the video-proposal generator/tracker on sequences of KITTI tracking dataset.
+# You can specify which KITTI sequences you want to process (0-20) and how many do you want to process in parallel.
 
 # Specify which KITTI sequence to execute. By default, all 20.
-SEQUENCES=$(seq 0 8)
+SEQUENCES=$(seq 0 20)
 
 # Tracker settings
 SEGM_INPUTS=mrcnn_tuned # [ mrcnn_tuned | mprcnn_coco | sharpmask_coco ]
@@ -30,7 +28,7 @@ else
 fi
 
 # Data
-EXEC=/home/${USER}/projects/tracking-framework/cmake-build-release/apps/CAMOT
+EXEC=/home/${USER}/projects/4DGVT/build/apps/CAMOT
 KITTI_PATH=/home/${USER}/data/kitti_tracking
 DATA_PATH=${KITTI_PATH}/training
 PREPROC_DIR=${KITTI_PATH}/preproc
@@ -90,7 +88,6 @@ for SEQUENCE in ${SEQUENCES[@]}; do
 
 	--debug_level 3"
 
-	#echo ${RUN_STR}
 	${RUN_STR} &
 	let div="((SEQUENCE+1))%${MAX_PROC}"
  	if [[ $div -eq 0 ]]; then # This ensoures only 4 jobs are being processed in parallel
