@@ -38,16 +38,16 @@ Note: any other paths will do too, you will just need to adapt for that in the `
 0. Download [precomputed segmentations](https://drive.google.com/open?id=1AmDVzanSeHvmgJ4nh36jByOH-qIsib_2) we provide for KITTI tracking dataset, unzip to `/home/${USER}/data/kitti_tracking/preproc`
 0. Clone this repo to `/home/${USER}/projects`
 
-### Compiling the code using CMake
+### Compiling the Code Using CMake
 0.  `mkdir build`
 0.  `cmake ..`
 0.  `make all`
 
-### Running the tracker
+### Running the Tracker
 0.  Enter `%PROJ_DIR%/script/`
 0.  Execute `exec_tracker.sh`
 
-### Tracker settings
+### Tracker Execution Script Settings
 * `SEGM_INPUTS` - Specify which pre-computed segmentations to use -- Mask Proposal R-CNN (`mprcnn_coco`; recommended), Sharpmask (`sharpmask_coco`), Mask R-CNN fine-tuned on KITTI (`mrcnn_tuned`) 
 * `INF_MODEL` - Specify which model should be used for inference - `4DGVT` (recommended) or `CAMOT`.
 * `INPUT_CONF_THRESH` - Detection/proposal score threshold. In case it is set to `0.8` or more, you will be only forwarding confident detections.
