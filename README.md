@@ -16,8 +16,8 @@ and
 By [Aljosa Osep](https://www.vision.rwth-aachen.de/person/13/), [Paul Voigtlaender](https://www.vision.rwth-aachen.de/person/197/), [Jonathon Luiten](https://www.vision.rwth-aachen.de/person/216/), Mark Weber, [Bastian Leibe](https://www.vision.rwth-aachen.de/person/1/), Computer Vision Group, RWTH Aachen University
 
 ## Demo  Video
-TODO
-
+* [CAMOT video (older version)](https://youtu.be/HYXzHuD4AKI)
+* 4DGVT videos coming soon!
 ## Prerequisite
 
 In order to run the code, your setup has to meet the following minimum requirements (tested versions in parentheses. Other versions might work, too):
