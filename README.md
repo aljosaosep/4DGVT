@@ -1,7 +1,7 @@
 # 4D Generic Video Object Proposals
 # Track, then Decide: Category-Agnostic Vision-based Multi-Object Tracking
 
-This repository contains code for the tracking system as described in
+This repository contains code for the work as described in
 
 **Track, then Decide: Category-Agnostic Vision-based Multi-Object Tracking. ICRA 2018. (https://arxiv.org/pdf/1712.07920.pdf)**
 
