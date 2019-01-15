@@ -1,15 +1,23 @@
 #!/bin/bash
 
+# This script executes the video-proposal generator / tracker
+# on sequences of KITTI tracking dataset.
+# You can specify which KITTI sequences you want to process (0-20)
+# and how many do you want to process in parallel.
+
 # Specify which KITTI sequence to execute. By default, all 20.
 SEQUENCES=$(seq 0 8)
 
 # Tracker settings
-SEGM_INPUTS=mrcnn_tuned # [ mrcnn_tuned | mrcnn_coco | sharpmask_coco ]
+SEGM_INPUTS=mrcnn_tuned # [ mrcnn_tuned | mprcnn_coco | sharpmask_coco ]
 INF_MODEL="4DGVT" # [CAMOT|4DGVT]
 
 # Tracker parameters
-INPUT_CONF_THRESH=0.8
-MAX_NUM_PROPOSALS=300
+INPUT_CONF_THRESH=0.8 # Detection/proposal score threshold. In case it is set to 0.8 or more, you will be only getting confident detections.
+MAX_NUM_PROPOSALS=300 # Max. num. of proposals passed to the tracker
+
+# Processing settings
+MAX_PROC=4 # How many instances do you want to execute in parallel?
 
 if [ "${INF_MODEL}" == "CAMOT" ]; then
         echo "Using CAMOT model ..."
@@ -20,9 +28,6 @@ elif [ "${INF_MODEL}" == "4DGVT" ]; then
 else
         echo "Incorrect model specifier (valid: CAMOT | 4DGVT)"
 fi
-
-# Processing settings
-MAX_PROC=4
 
 # Data
 EXEC=/home/${USER}/projects/tracking-framework/cmake-build-release/apps/CAMOT
