@@ -21,7 +21,9 @@ TODO
 ## Prerequisite
 
 In order to run the code, your setup has to meet the following minimum requirements (tested versions in parentheses. Other versions might work, too):
+* cmake (tested with 3.9.6, earlier versions should work too)
 * GCC 5.4.0
+* Libs:
   * Eigen (3.x)
   * Boost (1.55 or later)
   * OpenCV (3.0.0 + OpenCV contrib)
@@ -98,6 +100,7 @@ If you find the tracker useful in your research, please consider citing:
     }
 
 ## Potential Issues
+* In case you want to use self-compiled libs, you may need to specify these paths (eg. edit cmake cache or use `ccmake`): `PCL_DIR`, `OpenCV_DIR`, `BOOST_ROOT`
 * `CMake Error Unable to find the requested Boost libraries. Unable to find the Boost header files.  Please set BOOST_ROOT to the root directory containing Boost or BOOST_INCLUDEDIR to the directory containing Boost's headers.` For certain combinations of boost and cmake versions, it may happen cmake will not find all dependencies. Typically this will happen when using newer boost and older cmake; try using most recent cmake to avoid this issue.
 
 ## License
