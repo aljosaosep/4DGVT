@@ -1,11 +1,10 @@
-cmake_minimum_required(VERSION 2.8.6)
+cmake_minimum_required(VERSION 3.9.6)
 project(GOT)
 
 # Build Options
 option(SHOW_PATH "Show path of libs and headers" ON)
-set(LOCAL_PREFIX "/home/osep/local/" CACHE PATH "Path to local installations e.g. USER/local/")
-set(RPATH "/home/osep/local/lib/" CACHE PATH "Path to local libraries e.g. USER/local/lib/")
-set(OpenCV_DIR "/home/osep/local/share/OpenCV" CACHE PATH "Path to local OpenCV e.g. USER/local/share/OpenCV")
+set(OpenCV_DIR "/home/aljosa/local/share/OpenCV" CACHE PATH "Path to local OpenCV e.g. USER/local/share/OpenCV")
+set(BOOST_ROOT "/home/aljosa/local/lib" CACHE PATH "Boost root dir")
 
 # Configuration
 # Compiler Flags
@@ -19,18 +18,20 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 set(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
 set(CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
 
-# Explicitly set path to flann library, make sure to put this before pcl part
-set(Boost_LIBS
-        "${LOCAL_PREFIX}/lib/libboost_program_options.so"
-        "${LOCAL_PREFIX}/lib/libboost_thread.so"
-        "${LOCAL_PREFIX}/lib/libboost_system.so"
-        "${LOCAL_PREFIX}/lib/libboost_signals.so"
-        "${LOCAL_PREFIX}/lib/libboost_log.so"
-        )
-
 # Here we set *_LIBS, *_INCLUDE_DIRS, etc
 find_package(OpenCV 3.0 REQUIRED COMPONENTS core highgui imgproc calib3d video)
 find_package(PCL 1.8.0 REQUIRED COMPONENTS common io visualization filters sample_consensus segmentation kdtree)
+
+set(Boost_USE_STATIC_LIBS OFF)
+set(Boost_USE_MULTITHREADED ON)
+set(Boost_USE_STATIC_RUNTIME OFF)
+find_package(Boost 1.55 COMPONENTS program_options thread system signals REQUIRED)
+
+if(Boost_FOUND)
+    include_directories(${Boost_INCLUDE_DIRS})
+    link_directories(${Boost_LIBRARY_DIR})
+    message(STATUS "Boost found!" ${Boost_LIBRARIES})
+endif()
 
 include_directories(include ${PROJECT_SOURCE_DIR} ${OpenCV_INCLUDE_DIRS} ${PCL_INCLUDE_DIRS})
 
@@ -146,7 +147,6 @@ target_link_libraries(viso2)
 target_link_libraries(scene_segmentation pthread)
 target_link_libraries(tracking viso2)
 
-
 # Subdirectories
 # Add subfolder that also contain CMakeLists.txt
 add_subdirectory(apps)
@@ -155,7 +155,6 @@ add_subdirectory(experimental)
 # Debug infos
 if(SHOW_PATH)
     message(STATUS "Boost_LIBRARIES: " ${Boost_LIBRARIES})
-    message(STATUS "Boost libs: " ${Boost_LIBS})
     message(STATUS ${OpenCV_LIBS})
     message(STATUS "Project Source Dirs: " ${PROJECT_SOURCE_DIR})
     message(STATUS "OpenCV Include Dirs: " ${OpenCV_INCLUDE_DIRS})
