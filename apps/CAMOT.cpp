@@ -113,7 +113,7 @@ namespace CAMOTApp {
                     ("segmentations_json_file", po::value<std::string>(), "JSON file with segmentation masks.")
                     ("object_proposals_path", po::value<std::string>(), "Object proposals path (KITTI format)")
 
-                    ("output_dir", po::value<std::string>(), "Output path")
+                    ("output_dir", po::value<std::string>()->required(), "Output path")
                     ("eval_output_dir", po::value<std::string>(), "Output path: evaluation.")
 
                     ("start_frame", po::value<int>()->default_value(0), "Starting frame")
@@ -340,8 +340,7 @@ int main(const int argc, const char** argv) {
     // -------------------------------------------------------------------------------
     po::variables_map variables_map;
     if (!CAMOTApp::ParseCommandArguments(argc, argv, variables_map)) {
-        printf("Error parsing command args/configs, exiting.\r\n");
-        return -1;
+        throw std::runtime_error("Error parsing command args/configs, exiting.");
     }
 
     RunSequence(variables_map);
