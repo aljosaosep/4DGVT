@@ -84,6 +84,9 @@ If you find the tracker useful in your research, please consider citing:
       year = {2019}
     }
 
+## Potential Issues
+* `CMake Error Unable to find the requested Boost libraries. Unable to find the Boost header files.  Please set BOOST_ROOT to the root directory containing Boost or BOOST_INCLUDEDIR to the directory containing Boost's headers.` For certain combinations of boost and cmake versions, it may happen cmake will not find all dependencies. Typically this will happen when using newer boost and older cmake; try using most recent cmake to avoid this issue.
+
 ## License
 
 GNU General Public License (http://www.gnu.org/licenses/gpl.html)
