@@ -1,4 +1,4 @@
-# WARNING: THIS INSTRUCTIONS ARE STILL BEING WRITTEN. WAIT A BIT MORE.
+# WARNING: THIS INSTRUCTIONS ARE STILL BEING WRITTEN. STAY TUNED.
 
 # 4D Generic Video Object Proposals
 # Track, then Decide: Category-Agnostic Vision-based Multi-Object Tracking
@@ -47,7 +47,6 @@ Note: any other paths will do too, you will just need to adapt for that in the `
 0.  Enter `%PROJ_DIR%/script/`
 0.  Execute `exec_tracker.sh`
 
-
 ### Tracker settings
 * `SEGM_INPUTS` - Specify which pre-computed segmentations to use -- Mask Proposal R-CNN (`mprcnn_coco`; recommended), Sharpmask (`sharpmask_coco`), Mask R-CNN fine-tuned on KITTI (`mrcnn_tuned`) 
 * `INF_MODEL` - Specify which model should be used for inference - `4DGVT` (recommended) or `CAMOT`.
@@ -61,7 +60,7 @@ Note: any other paths will do too, you will just need to adapt for that in the `
 
 * Inputs to the tracker
     * You can use our [precomputed segmentations](https://drive.google.com/open?id=1AmDVzanSeHvmgJ4nh36jByOH-qIsib_2) for KITTI
-    * Provide your own using:
+    * Provide your own using (export per-frame segmentations to json, pass jsons to the tracker):
         * Sharpmask [repo](https://github.com/facebookresearch/deepmask)
         * Our Mask Proposal R-CNN (MP R-CNN) [repo](https://github.com/aljosaosep/mprcnn)
         * You can also use MaskX R-CNN, trained on 3K+ classes on Visual Genome dataset [project page + code](http://ronghanghu.com/seg_every_thing/)
@@ -76,8 +75,7 @@ Note: any other paths will do too, you will just need to adapt for that in the `
 * Additional remarks about CAMOT
     * TODO
 
-
-* Run the tracker in `release` mode (oterwise it will be slow).
+* Run the tracker in `release` mode (otherwise it will be slow).
 
 If you have any issues or questions about the code, please contact me https://www.vision.rwth-aachen.de/person/13/
 
