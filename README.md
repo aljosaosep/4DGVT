@@ -32,7 +32,7 @@ In order to run the code, your setup has to meet the following minimum requireme
 ## Install
 
 ### Data
-Note: any other paths will do too, you will just need to adapt for that in the `%ROOT$/script/exec_tracker.sh`
+Note: any other paths will do too, you will just need to adapt for that in the `$REPO/script/exec_tracker.sh`
 
 0. Download [KITTI tracking dataset](http://www.cvlibs.net/datasets/kitti/eval_tracking.php) and place it to `/home/${USER}/data/kitti_tracking`
 0. Download [precomputed segmentations](https://drive.google.com/open?id=1AmDVzanSeHvmgJ4nh36jByOH-qIsib_2) we provide for KITTI tracking dataset, unzip to `/home/${USER}/data/kitti_tracking/preproc`
