@@ -44,7 +44,7 @@ Note: any other paths will do too, you will just need to adapt for that in the `
 0.  `make all`
 
 ### Running the Tracker
-0.  Enter `%PROJ_DIR%/script/`
+0.  Enter `$REPO/script/`
 0.  Execute `exec_tracker.sh`
 
 ### Tracker Execution Script Settings
