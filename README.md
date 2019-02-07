@@ -27,7 +27,7 @@ In order to run the code, your setup has to meet the following minimum requireme
   * Eigen (3.x)
   * Boost (1.55 or later)
   * OpenCV (3.0.0 + OpenCV contrib)
-  * PCL (1.8.0)
+  * PCL (1.8.0) (it was reported to work with 1.9.x as well)
 
 ## Install
 
