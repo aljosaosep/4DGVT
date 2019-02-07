@@ -37,13 +37,14 @@ namespace GOT {
     namespace segmentation {
 
         namespace proposal_generation {
-            std::vector<GOT::segmentation::ObjectProposal> ProposalsFromJson(int current_frame,
-                                                                             const std::string &json_file,
-                                                                             const SUN::utils::Camera &left_camera,
-                                                                             const SUN::utils::Camera &right_camera,
-                                                                             pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr point_cloud,
-                                                                             const po::variables_map &parameter_map,
-                                                                             int max_num_proposals = 1000);
+
+            ObjectProposal::Vector ProposalsFromJson(int current_frame,
+                                                     const std::string &json_file,
+                                                     const SUN::utils::Camera &left_camera,
+                                                     const SUN::utils::Camera &right_camera,
+                                                     pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr point_cloud,
+                                                     const po::variables_map &parameter_map,
+                                                     int max_num_proposals = 1000);
         }
     }
 }

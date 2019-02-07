@@ -95,7 +95,7 @@ namespace GOT {
             current_frame_ = frame;
         }
 
-        void DataQueue::AddNewObservations(const std::vector<Observation> &observations) {
+        void DataQueue::AddNewObservations(const Observation::Vector &observations) {
             if (this->observation_queue_.size() >= static_cast<unsigned int>(this->temporal_window_size_)) {
                 observation_queue_.pop_front();
                 observation_queue_.push_back(observations);
@@ -105,14 +105,14 @@ namespace GOT {
         }
 
 
-        std::vector<Observation> DataQueue::GetObservations(int frame, bool &lookup_success) const {
+        Observation::Vector DataQueue::GetObservations(int frame, bool &lookup_success) const {
             int queue_lookup_index = -1;
             lookup_success = this->FrameIndexToQueueIndex(frame, queue_lookup_index);
 
             if (lookup_success) {
                 return observation_queue_.at(queue_lookup_index);
             }
-            return std::vector<Observation>();
+            return Observation::Vector();
         }
 
         bool DataQueue::GetInlierObservation(int frame, int inlier_index, Observation &obs) const {

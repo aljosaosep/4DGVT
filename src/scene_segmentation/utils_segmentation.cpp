@@ -74,11 +74,11 @@ namespace GOT {
                 return false;
             };
 
-            std::vector<ObjectProposal>
-            MultiScaleSuppression(const std::vector<std::vector<ObjectProposal> > &proposals_per_scale,
+            ObjectProposal::Vector
+            MultiScaleSuppression(const std::vector<ObjectProposal::Vector> &proposals_per_scale,
                                   double IOU_threshold) {
 
-                std::vector<ObjectProposal> accepted_proposals;
+                ObjectProposal::Vector accepted_proposals;
                 for (const auto &current_scale_proposals:proposals_per_scale) {
                     // Loop through current-scale proposals. If you find IOU overlap with existing, merge the two.
                     // Otherwise, push to list.
@@ -125,12 +125,11 @@ namespace GOT {
             /*
              * @brief: Proposal NMS
              */
-            std::vector<GOT::segmentation::ObjectProposal>
-            NonMaximaSuppression(const std::vector<GOT::segmentation::ObjectProposal> &proposals_in,
-                                 double iou_threshold) {
+            ObjectProposal::Vector NonMaximaSuppression(const ObjectProposal::Vector &proposals_in,
+                                                        double iou_threshold) {
 
-                std::vector<GOT::segmentation::ObjectProposal> active_set = proposals_in;
-                std::vector<GOT::segmentation::ObjectProposal> final_supressed_set;
+                ObjectProposal::Vector active_set = proposals_in;
+                ObjectProposal::Vector final_supressed_set;
 
                 while (active_set.size() > 0) {
 
@@ -143,7 +142,7 @@ namespace GOT {
 
                     GOT::segmentation::ObjectProposal best_scoring = *it_to_max_element;
                     std::set<int> overlapping_set;
-                    std::vector<GOT::segmentation::ObjectProposal> overlapping_set_props;
+                    ObjectProposal::Vector overlapping_set_props;
                     for (int i = 0; i < active_set.size(); i++) {
                         const GOT::segmentation::ObjectProposal &element_to_test = active_set.at(i);
                         double geom_IOU = SUN::utils::bbox::IntersectionOverUnion2d(best_scoring.bounding_box_2d(),
@@ -164,7 +163,7 @@ namespace GOT {
 
                     final_supressed_set.push_back(best_scoring);
 
-                    std::vector<GOT::segmentation::ObjectProposal> proposals_to_keep;
+                    ObjectProposal::Vector proposals_to_keep;
                     for (int i = 0; i < active_set.size(); i++) {
                         if (overlapping_set.count(i) == 0 && overlapping_set.size() > 0) {
                             proposals_to_keep.push_back(active_set.at(i));
@@ -175,7 +174,7 @@ namespace GOT {
                 return final_supressed_set;
             }
 
-            bool SerializeJson(const char *filename, const std::vector<ObjectProposal> &proposals) {
+            bool SerializeJson(const char *filename, const ObjectProposal::Vector &proposals) {
                 json j;
 
                 // Foreach proposal
@@ -342,7 +341,7 @@ namespace GOT {
             }
 
             bool
-            DeserializeJson(const char *filename, std::vector<ObjectProposal> &proposals, int max_proposals_to_proc) {
+            DeserializeJson(const char *filename, ObjectProposal::Vector &proposals, int max_proposals_to_proc) {
 
                 auto json_array_to_eigen = [](const json &jobj) -> Eigen::VectorXd {
                     Eigen::VectorXd vec_out;

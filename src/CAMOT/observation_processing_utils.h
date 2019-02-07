@@ -24,6 +24,8 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA
 
 #include <opencv2/core/mat.hpp>
 #include <pcl/common/common_headers.h>
+#include <scene_segmentation/object_proposal.h>
+#include <tracking/observation.h>
 
 namespace GOT { namespace tracking { class Hypothesis; }}
 namespace GOT { namespace tracking { class Observation; }}
@@ -39,16 +41,16 @@ namespace GOT {
                 /**
                  * @brief This method transforms segmentation::ObjectProposal representation into tracking::Observation (tracker expects 'observation' representation)
                  */
-                std::vector<GOT::tracking::Observation>
+                Observation::Vector
                 ProcessObservations(const pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr scene_cloud,
-                                    const std::vector<GOT::segmentation::ObjectProposal> &proposals,
+                                    const GOT::segmentation::ObjectProposal::Vector &proposals,
                                     const SUN::utils::Camera &camera);
 
                 /**
                  * @brief Compute obs. velocities based on the input velocity map.
                  */
-                std::vector<GOT::tracking::Observation>
-                ComputeObservationVelocity(const std::vector<GOT::tracking::Observation> &observations,
+                Observation::Vector
+                ComputeObservationVelocity(const Observation::Vector &observations,
                                            const cv::Mat &velocity_map, double dt);
             }
         }

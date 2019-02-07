@@ -82,9 +82,9 @@ namespace GOT {
              */
             bool GetObjectProposals(int frame, const std::string &proposals_path,
                                     const po::variables_map &options_map,
-                                    std::function<std::vector<GOT::segmentation::ObjectProposal>(
+                                    std::function<GOT::segmentation::ObjectProposal::Vector(
                                             const po::variables_map &)> proposal_gen_fnc,
-                                    std::vector<GOT::segmentation::ObjectProposal> &proposals_out) {
+                                    GOT::segmentation::ObjectProposal::Vector &proposals_out) {
                 char proposal_path_buff[500];
                 snprintf(proposal_path_buff, 500, proposals_path.c_str(), frame);
 
@@ -153,8 +153,9 @@ namespace GOT {
 
                 // Other globals
                 Eigen::Matrix4d g_egomotion = Eigen::Matrix4d::Identity();
-                std::map<int, SUN::utils::Camera> g_left_cameras_all; // Ned for post-CRF viz.
-                std::vector<GOT::segmentation::ObjectProposal> object_proposals;
+                std::map<int, SUN::utils::Camera, std::less<int>,
+                         Eigen::aligned_allocator<std::pair<const int, SUN::utils::Camera> > > g_left_cameras_all; // Need for post-CRF viz.
+                GOT::segmentation::ObjectProposal::Vector object_proposals;
                 std::vector<std::vector<double>> all_poses; // For export of poses of tracked objects
 
                 // Track stats
@@ -257,9 +258,9 @@ namespace GOT {
 
                     left_image = dataset_assistant.left_image_.clone();
                     left_point_cloud.reset(new pcloud);
-                    auto &left_camera = dataset_assistant.left_camera_;
-                    auto &right_camera = dataset_assistant.right_camera_;
-                    std::vector<GOT::tracking::Observation> observations_to_pass_to_tracker;
+                    SUN::utils::Camera &left_camera = dataset_assistant.left_camera_;
+                    SUN::utils::Camera &right_camera = dataset_assistant.right_camera_;
+                    GOT::tracking::Observation::Vector observations_to_pass_to_tracker;
 
                     // -------------------------------------------------------------------------------
                     // +++ Generic proposal generators +++
@@ -272,11 +273,23 @@ namespace GOT {
                         json_path = std::string(json_path_buff);
                     }
 
+                    // @Dan: std::bind always copy or move its arguments, i.e. it cannot pass by reference.
+                    // Is passing by value desired behavior here?
+                    // See https://stackoverflow.com/questions/26187192/how-to-bind-function-to-an-object-by-reference
+                    // std::function do not respect custom alignment of captured variables.
+                    // If the input variable needs to be aligned (left_camera, right_camera), they have to be captured by reference.
+                    // See https://stackoverflow.com/questions/44318653/segmentation-fault-in-capturing-aligned-variables-in-lambdas
+                    // In general, I would get rid of this std::function usage, as it is not necessary.
+                    SUN::utils::Camera left_camera_copy = left_camera;
+                    SUN::utils::Camera right_camera_copy = right_camera;
                     auto proposal_gen_fnc = std::bind(GOT::segmentation::proposal_generation::ProposalsFromJson,
                                                       current_frame,
                                                       json_path.c_str(),
-                                                      left_camera, right_camera, left_point_cloud,
-                                                      std::placeholders::_1, 1000);
+                                                      std::ref(left_camera_copy),
+                                                      std::ref(right_camera_copy),
+                                                      left_point_cloud,
+                                                      std::placeholders::_1,
+                                                      1000);
 
                     pcl::copyPointCloud(*dataset_assistant.left_point_cloud_, *left_point_cloud);
 
@@ -360,7 +373,7 @@ namespace GOT {
                         }
                     }
 
-                    std::vector<GOT::segmentation::ObjectProposal> loaded_proposals_for_viz_only;
+                    GOT::segmentation::ObjectProposal::Vector loaded_proposals_for_viz_only;
 
                     // -------------------------------------------------------------------------------
                     // +++ Observation Processing + Tracking / Tracklet Generation +++
@@ -394,7 +407,7 @@ namespace GOT {
 
                         /// Filter-out < 100px
                         if (debug_level > 0) printf("[ Proposal filtering ...] \r\n");
-                        std::vector<GOT::segmentation::ObjectProposal> obj_prop_area_filt;
+                        GOT::segmentation::ObjectProposal::Vector obj_prop_area_filt;
                         for (const auto &p : object_proposals) {
                             Eigen::Vector4d prop_bbox = p.bounding_box_2d();
                             if (prop_bbox[2] * prop_bbox[3] < 100) {
@@ -434,7 +447,7 @@ namespace GOT {
                                      const GOT::segmentation::ObjectProposal &b) { return a.score() > b.score(); });
 
                         /// Keep K-best scoring
-                        std::vector<GOT::segmentation::ObjectProposal> prop_tmp;
+                        GOT::segmentation::ObjectProposal::Vector prop_tmp;
                         prop_tmp.insert(
                                 prop_tmp.begin(),
                                 object_proposals.begin(),

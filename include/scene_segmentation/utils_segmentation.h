@@ -66,16 +66,15 @@ namespace GOT {
             /*
              * @brief: Multi-scale sort-of proposal supression (as desc. in Osep etal., ICRA'16)
              */
-            std::vector<ObjectProposal>
-            MultiScaleSuppression(const std::vector<std::vector<ObjectProposal>> &proposals_per_scale,
+            ObjectProposal::Vector
+            MultiScaleSuppression(const std::vector<ObjectProposal::Vector> &proposals_per_scale,
                                   double IOU_threshold);
 
             /*
              * @brief: Traditional NMS
              */
-            std::vector<GOT::segmentation::ObjectProposal>
-            NonMaximaSuppression(const std::vector<GOT::segmentation::ObjectProposal> &proposals_in,
-                                 double iou_threshold);
+            ObjectProposal::Vector NonMaximaSuppression(const ObjectProposal::Vector &proposals_in,
+                                                        double iou_threshold);
 
 
             bool ExtractBasicInfoFromJson(const nlohmann::json &json_prop,
@@ -90,12 +89,12 @@ namespace GOT {
             /*
               * @brief: Export proposals -> json
               */
-            bool SerializeJson(const char *filename, const std::vector<ObjectProposal> &proposals);
+            bool SerializeJson(const char *filename, const ObjectProposal::Vector &proposals);
 
             /*
               * @brief: Read proposals from a json file
               */
-            bool DeserializeJson(const char *filename, std::vector<ObjectProposal> &proposals,
+            bool DeserializeJson(const char *filename, ObjectProposal::Vector &proposals,
                                  int max_proposals_to_proc = 500);
         }
     }

@@ -43,7 +43,7 @@ namespace GOT {
         typedef pcl::PointCloud<pcl::PointXYZRGBA> PointCloudRGBA;
         typedef std::deque<PointCloudRGBA::Ptr> PointCloudQueue;
         typedef std::deque<SUN::utils::Camera> CameraQueue;
-        typedef std::deque<std::vector<Observation> > ObservationQueue;
+        typedef std::deque<Observation::Vector> ObservationQueue;
 
         /**
            * @brief Implements Resources class.
@@ -51,6 +51,10 @@ namespace GOT {
            * Measurements that fall outside of the temporal window are dumped..
            */
         class DataQueue {
+        public:
+            // Typedefs
+            typedef std::shared_ptr<const DataQueue> ConstPtr;
+
         public:
             DataQueue(int temporal_window_size);
 
@@ -69,12 +73,9 @@ namespace GOT {
             void AddEgoEstimate(const Eigen::Matrix4d &ego_estimate);
             void GetEgoEstimate(int frame, Eigen::Matrix4d &ego_estimate, bool &success) const;
 
-            void AddNewObservations(const std::vector<Observation> &observations);
-            std::vector<Observation> GetObservations(int frame, bool &lookup_success) const;
+            void AddNewObservations(const Observation::Vector &observations);
+            Observation::Vector GetObservations(int frame, bool &lookup_success) const;
             bool GetInlierObservation(int frame, int inlier_index, Observation &obs) const;
-
-            // Typedefs
-            typedef std::shared_ptr<const DataQueue> ConstPtr;
 
         protected:
             /**
@@ -88,7 +89,7 @@ namespace GOT {
             PointCloudQueue scene_cloud_queue_;
             CameraQueue camera_queue_;
             ObservationQueue observation_queue_;
-            std::deque<Eigen::Matrix4d> ego_transformations_;
+            std::deque<Eigen::Matrix4d, Eigen::aligned_allocator<Eigen::Matrix4d> > ego_transformations_;
 
             int temporal_window_size_; // Defines how many past measurements we store.
             int current_frame_; // Internal frame counter.

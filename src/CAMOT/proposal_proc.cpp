@@ -22,7 +22,6 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA
 #include "proposal_proc.h"
 
 // segmentation
-#include <scene_segmentation/object_proposal.h>
 #include <scene_segmentation/utils_segmentation.h>
 
 // utils
@@ -35,10 +34,11 @@ namespace GOT {
         namespace CAMOT_tracker {
             namespace proposal_utils {
 
-                std::vector<GOT::segmentation::ObjectProposal> GeometricFiltering(const SUN::utils::Camera &ref_camera,
-                                                                                  const std::vector<GOT::segmentation::ObjectProposal> &proposals_in,
-                                                                                  const po::variables_map &variables_map) {
-                    std::vector<GOT::segmentation::ObjectProposal> proposals_tmp;
+                GOT::segmentation::ObjectProposal::Vector
+                GeometricFiltering(const SUN::utils::Camera &ref_camera,
+                                   const GOT::segmentation::ObjectProposal::Vector &proposals_in,
+                                   const po::variables_map &variables_map) {
+                    GOT::segmentation::ObjectProposal::Vector proposals_tmp;
                     for (const auto &prop:proposals_in) {
 
                         const double rear = variables_map.at("proposals_geometric_filter_near").as<double>();
@@ -68,10 +68,10 @@ namespace GOT {
                     return proposals_tmp;
                 }
 
-                std::vector<GOT::segmentation::ObjectProposal>
-                ProposalsConfidenceFilter(const std::vector<GOT::segmentation::ObjectProposal> &obj_proposals_in,
+                GOT::segmentation::ObjectProposal::Vector
+                ProposalsConfidenceFilter(const GOT::segmentation::ObjectProposal::Vector &obj_proposals_in,
                                           double thresh) {
-                    std::vector<GOT::segmentation::ObjectProposal> obj_proposals_out;
+                    GOT::segmentation::ObjectProposal::Vector obj_proposals_out;
                     obj_proposals_out.reserve(obj_proposals_in.size());
                     for (const auto &prop:obj_proposals_in) {
                         if (prop.score() > thresh)

@@ -119,6 +119,9 @@ namespace SUN {
                 // Ground, odometry info
                 bool got_ground_plane_ = false;
                 Eigen::Vector4d ground_plane_;
+
+            public:
+                EIGEN_MAKE_ALIGNED_OPERATOR_NEW
             };
         }
     }

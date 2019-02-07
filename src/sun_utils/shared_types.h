@@ -24,6 +24,8 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA
 
 #include "external/maskApi.h"
 
+#include <cassert>
+#include <vector>
 #include <map>
 
 namespace SUN {

@@ -11,8 +11,8 @@ set(BOOST_ROOT "/home/aljosa/local/lib" CACHE PATH "Boost root dir")
 set(CMAKE_CXX_COMPILER_FLAGS "${CMAKE_CXX_COMPILER_FLAGS} -Wall") # Enables all compiler warnings
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")  # Generate position independent code
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -DBOOST_MATH_DISABLE_FLOAT128")  # Enable c++17
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse3")
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse3")  # Forcing SSE vectorization instructions may cause segmentfault
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -march=native")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 set(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
@@ -21,6 +21,7 @@ set(CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
 # Here we set *_LIBS, *_INCLUDE_DIRS, etc
 find_package(OpenCV 3.0 REQUIRED COMPONENTS core highgui imgproc calib3d video)
 find_package(PCL 1.8.0 REQUIRED COMPONENTS common io visualization filters sample_consensus segmentation kdtree)
+link_directories(${PCL_LIBRARY_DIRS})
 
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)

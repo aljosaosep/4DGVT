@@ -85,6 +85,9 @@ namespace SUN {
 
         private:
             Eigen::Vector4d plane_params_;
+
+        public:
+            EIGEN_MAKE_ALIGNED_OPERATOR_NEW
         };
     }
 }
