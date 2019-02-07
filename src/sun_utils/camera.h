@@ -45,6 +45,9 @@ namespace SUN {
            */
         class Camera {
         public:
+            EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
+        public:
             Camera();
 
             /**

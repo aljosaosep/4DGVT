@@ -60,13 +60,13 @@ namespace GOT {
                 return inds;
             }
 
-            std::vector<GOT::segmentation::ObjectProposal> ProposalsFromJson(int current_frame,
-                                                                             const std::string &json_file,
-                                                                             const SUN::utils::Camera &left_camera,
-                                                                             const SUN::utils::Camera &right_camera,
-                                                                             pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr point_cloud,
-                                                                             const po::variables_map &parameter_map,
-                                                                             int max_num_proposals) {
+            ObjectProposal::Vector ProposalsFromJson(int current_frame,
+                                                     const std::string &json_file,
+                                                     const SUN::utils::Camera &left_camera,
+                                                     const SUN::utils::Camera &right_camera,
+                                                     pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr point_cloud,
+                                                     const po::variables_map &parameter_map,
+                                                     int max_num_proposals) {
 
                 std::ifstream i(json_file);
                 if (!i.is_open()) {
@@ -76,7 +76,7 @@ namespace GOT {
                 nlohmann::json json_proposals;
                 i >> json_proposals;
 
-                std::vector<GOT::segmentation::ObjectProposal> object_proposals;
+                ObjectProposal::Vector object_proposals;
                 int object_no = 0;
 
                 // -------------------------------------------------------------------------------
@@ -114,7 +114,7 @@ namespace GOT {
                     rleToBbox(R, bb, 1);
 
                     /// Turn segmentation to 'object proposal' instance
-                    GOT::segmentation::ObjectProposal proposal;
+                    ObjectProposal proposal;
                     proposal.set_pointcloud_indices(inds, left_camera.width(), left_camera.height());
                     proposal.set_bounding_box_2d(Eigen::Vector4d(bb[0], bb[1], bb[2], bb[3]));
                     proposal.set_score(score);
@@ -140,14 +140,14 @@ namespace GOT {
                 if (do_non_max_supp) {
                     const int size_before_suppression = object_proposals.size();
                     printf("Running non-max-supp ...\r\n");
-                    std::vector<GOT::segmentation::ObjectProposal> suppressed =
+                    ObjectProposal::Vector suppressed =
                             GOT::segmentation::utils::NonMaximaSuppression(object_proposals, non_max_supp_thresh);
                     object_proposals = suppressed;
                     printf("Size before suppression: %d, size after: %d.\r\n",
                             size_before_suppression, (int)object_proposals.size());
                 }
 
-                std::vector<GOT::segmentation::ObjectProposal> proposals_for_export;
+                ObjectProposal::Vector proposals_for_export;
                 int proposal_idx = 0;
                 for (const auto &proposal:object_proposals) {
                     auto proposal_indices = proposal.pointcloud_indices();

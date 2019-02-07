@@ -22,7 +22,6 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA
 #include "observation_processing_utils.h"
 
 #include <tracking/hypothesis.h>
-#include <scene_segmentation/object_proposal.h>
 #include <src/sun_utils/utils_bounding_box.h>
 #include <src/sun_utils/utils_common.h>
 #include "sun_utils/utils_kitti.h"
@@ -34,10 +33,10 @@ namespace GOT {
         namespace CAMOT_tracker {
             namespace obs_proc {
 
-                std::vector<GOT::tracking::Observation>
-                ComputeObservationVelocity(const std::vector<GOT::tracking::Observation> &observations,
+                Observation::Vector
+                ComputeObservationVelocity(const Observation::Vector &observations,
                                            const cv::Mat &velocity_map, double dt) {
-                    std::vector<GOT::tracking::Observation> obs_new;
+                    Observation::Vector obs_new;
                     for (const auto &obs:observations) {
                         // Compute velocity
                         Eigen::Vector3d obs_velocity = SUN::utils::observations::ComputeVelocity(velocity_map,
@@ -51,12 +50,11 @@ namespace GOT {
                     return obs_new;
                 }
 
-
-                std::vector<GOT::tracking::Observation>
+                Observation::Vector
                 ProcessObservations(const pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr scene_cloud,
-                                    const std::vector<GOT::segmentation::ObjectProposal> &proposals,
+                                    const GOT::segmentation::ObjectProposal::Vector &proposals,
                                     const SUN::utils::Camera &camera) {
-                    std::vector<GOT::tracking::Observation> observations;
+                    Observation::Vector observations;
 
                     for (const auto &proposal : proposals) {
 

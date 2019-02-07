@@ -33,10 +33,15 @@ namespace GOT {
 
         struct TrackletsResult {
             std::vector<GOT::tracking::Hypothesis> tracklets_;
-            std::map<int, SUN::utils::Camera> cameras_;
+            std::map<int, SUN::utils::Camera, std::less<int>,
+                     Eigen::aligned_allocator<std::pair<const int, SUN::utils::Camera> > > cameras_;
             int num_frames_processed_;
 
-            TrackletsResult(const std::vector<GOT::tracking::Hypothesis> &tr, const std::map<int, SUN::utils::Camera>& cam_map, int num_proc) {
+            TrackletsResult(const std::vector<GOT::tracking::Hypothesis> &tr,
+                            const std::map<int, SUN::utils::Camera, std::less<int>,
+                                           Eigen::aligned_allocator<std::pair<const int, SUN::utils::Camera> >>& cam_map,
+                            int num_proc)
+            {
                 tracklets_ = tr;
                 cameras_ = cam_map;
                 num_frames_processed_ = num_proc;

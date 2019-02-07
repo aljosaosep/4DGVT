@@ -22,11 +22,16 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA
 #ifndef GOT_OBJECT_PROPOSAL_H
 #define GOT_OBJECT_PROPOSAL_H
 
+#include "shared_types.h"
+
+#include <vector>
+
+#include <Eigen/Dense>
+#include <Eigen/StdVector>
+
 // PCL
 #include <pcl/common/common_headers.h>
 #include <pcl/point_types.h>
-
-#include "shared_types.h"
 
 
 namespace GOT {
@@ -45,7 +50,10 @@ namespace GOT {
            */
         class ObjectProposal {
         public:
+            EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+            typedef std::vector<ObjectProposal, Eigen::aligned_allocator<ObjectProposal> > Vector;
 
+        public:
             void init(const std::vector<int> &groundplane_indices,
                       const std::vector<int> &pointcloud_indices,
                       const Eigen::Vector4d &bounding_box_2d,
@@ -140,7 +148,6 @@ namespace GOT {
 
             int segm_id_;
         };
-
     }
 }
 

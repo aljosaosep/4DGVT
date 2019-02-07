@@ -732,8 +732,8 @@ namespace GOT {
                 // Access data, needed to make an association
                 const auto &ref_camera = detections->GetCamera(reference_frame, camera_lookup_success);
                 //auto past_state_point_cloud = detections->GetPointCloud(reference_frame);
-                const std::vector<Observation> &ref_state_observations = detections->GetObservations(reference_frame,
-                                                                                                     detections_lookup_success);
+                const Observation::Vector &ref_state_observations = detections->GetObservations(reference_frame,
+                                                                                                detections_lookup_success);
 
                 int max_element_index = -1;
 
@@ -946,9 +946,8 @@ namespace GOT {
                         bool first_frame_camera_lookup_success = false, first_frame_detections_lookup_success = false;
                         const auto &camera_first_frame = detections->GetCamera(first_frame,
                                                                                first_frame_camera_lookup_success);
-                        const std::vector<Observation> &observations_2d_first_frame = detections->GetObservations(
-                                first_frame, first_frame_detections_lookup_success
-                        );
+                        const Observation::Vector &observations_2d_first_frame = detections->GetObservations(
+                                first_frame, first_frame_detections_lookup_success);
 
                         if (first_frame_camera_lookup_success && first_frame_detections_lookup_success) {
                             const auto first_frame_obs = observations_2d_first_frame.at(first_frame_inlier_index);
@@ -981,9 +980,8 @@ namespace GOT {
                                 const auto &camera_current_frame = detections->GetCamera(candidate_frame,
                                                                                          current_frame_camera_lookup_success);
                                 assert(current_frame_camera_lookup_success);
-                                const std::vector<Observation> &observations_current_frame = detections->GetObservations(
-                                        candidate_frame,
-                                        current_frame_detections_lookup_success);
+                                const Observation::Vector &observations_current_frame = detections->GetObservations(
+                                        candidate_frame, current_frame_detections_lookup_success);
 
                                 /// Perform FORWARD egomotion compensation
                                 Eigen::VectorXd u = Eigen::VectorXd::Zero(8); // NOPE
@@ -1038,8 +1036,8 @@ namespace GOT {
 
                 /// Get camera & observations from the resource manager
                 bool observations_lookup_success = false;
-                const std::vector<Observation> &observations = detections->GetObservations(current_frame,
-                                                                                           observations_lookup_success);
+                const Observation::Vector &observations = detections->GetObservations(current_frame,
+                                                                                      observations_lookup_success);
                 bool camera_lookup_success = false;
                 const auto &camera = detections->GetCamera(current_frame, camera_lookup_success);
                 assert(camera_lookup_success);

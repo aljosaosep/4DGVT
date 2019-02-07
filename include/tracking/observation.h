@@ -27,11 +27,16 @@ Street, Fifth Floor, Boston, MA 02110-1301, USA
 
 // Eigen
 #include <Eigen/Core>
+#include <Eigen/StdVector>
 #include <src/sun_utils/shared_types.h>
 
 namespace GOT {
     namespace tracking {
         class Observation {
+        public:
+            EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+            typedef std::vector<Observation, Eigen::aligned_allocator<Observation> > Vector;
+
         public:
             Observation();
 
