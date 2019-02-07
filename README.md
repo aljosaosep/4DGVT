@@ -39,7 +39,7 @@ Note: any other paths will do too, you will just need to adapt for that in the `
 0. Clone this repo to `/home/${USER}/projects`
 
 ### Compiling the Code Using CMake
-0.  `mkdir build`
+0.  `mkdir build && cd build`
 0.  `cmake ..`
 0.  `make all`
 
