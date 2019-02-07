@@ -13,7 +13,7 @@ and
 
 **4D Generic Video Object Proposals (https://arxiv.org/pdf/1901.09260.pdf)**
 
-By [Aljosa Osep](https://www.vision.rwth-aachen.de/person/13/), [Paul Voigtlaender](https://www.vision.rwth-aachen.de/person/197/), [Jonathon Luiten](https://www.vision.rwth-aachen.de/person/216/), Mark Weber, [Bastian Leibe](https://www.vision.rwth-aachen.de/person/1/), Computer Vision Group, RWTH Aachen University
+By [Aljosa Osep](https://www.vision.rwth-aachen.de/person/13/), [Paul Voigtlaender](https://www.vision.rwth-aachen.de/person/197/), Mark Weber, [Jonathon Luiten](https://www.vision.rwth-aachen.de/person/216/), [Bastian Leibe](https://www.vision.rwth-aachen.de/person/1/), Computer Vision Group, RWTH Aachen University
 
 ## Demo  Video
 * [CAMOT video (older version)](https://youtu.be/HYXzHuD4AKI)
@@ -91,7 +91,7 @@ If you find the tracker useful in your research, please consider citing:
     }
 
     @article{Osep19arxiv,
-      author = {O\v{s}ep, Aljo\v{s}a and Voigtlaender, Paul and Luiten, Jonathon and Weber, Mark and Leibe, Bastian},
+      author = {O\v{s}ep, Aljo\v{s}a and Voigtlaender, Paul and Weber, Mark and Luiten, Jonathon and Leibe, Bastian},
       title = {4D Generic Video Object Proposals},
       journal = {arXiv preprint	arXiv:1901.09260},
       year = {2019}
