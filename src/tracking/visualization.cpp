@@ -644,31 +644,6 @@ namespace GOT {
                 DrawHypothesis3dForFrame(hypo.cache().timestamps().back(), hypo, camera, ref_image);
             }
 
-            void DrawHypoShapeModel(const GOT::tracking::Hypothesis &hypo, const SUN::utils::Camera &camera,
-                                    cv::Mat &ref_image, double alpha, const cv::Vec3b &custom_color) {
-                if (hypo.shape_model_const()) {
-                    auto points = hypo.shape_model_const()->integrated_points();
-                    if (points) {
-                        for (const auto &pt:points->points) {
-                            Eigen::Vector4f pt_eig_f = pt.getVector4fMap();
-                            Eigen::Vector3i proj_pt = camera.WorldToImage(pt_eig_f.cast<double>());
-
-                            const int col = proj_pt[0];
-                            const int row = proj_pt[1];
-
-                            if (col > 0 && row > 0 && col < ref_image.cols && row < ref_image.rows) {
-                                auto color = custom_color;
-                                if (color[0] == 0 && color[1] == 0 && color[2] == 0)
-                                    color = cv::Vec3b(static_cast<uint8_t>(pt.b), static_cast<uint8_t>(pt.g),
-                                                      static_cast<uint8_t>(pt.r));
-                                SUN::utils::visualization::DrawTransparentSquare(cv::Point(col, row), color, 2, alpha,
-                                                                                 ref_image);
-
-                            }
-                        }
-                    }
-                }
-            }
         }
 
         namespace draw_observations {
