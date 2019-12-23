@@ -19,8 +19,8 @@ set(CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS_DEBUG})
 set(CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE})
 
 # Here we set *_LIBS, *_INCLUDE_DIRS, etc
-find_package(OpenCV 3.0 REQUIRED COMPONENTS core highgui imgproc calib3d video)
-find_package(PCL 1.8.0 REQUIRED COMPONENTS common io visualization filters sample_consensus segmentation kdtree)
+find_package(OpenCV REQUIRED COMPONENTS core highgui imgproc calib3d)
+find_package(PCL 1.9.0 REQUIRED COMPONENTS common io visualization filters sample_consensus segmentation kdtree)
 link_directories(${PCL_LIBRARY_DIRS})
 
 set(Boost_USE_STATIC_LIBS OFF)
@@ -109,7 +109,6 @@ add_library (tracking
         src/tracking/hypothesis.cpp
         src/tracking/kalman_filter.cpp
         src/tracking/extended_kalman_filter.cpp
-        src/tracking/shape_model.cpp
         src/tracking/visualization.cpp
         src/tracking/qpbo.cpp
 
@@ -119,7 +118,6 @@ add_library (tracking
         include/tracking/hypothesis.h
         include/tracking/kalman_filter.h
         include/tracking/extended_kalman_filter.h
-        include/tracking/shape_model.h
         include/tracking/visualization.h
         include/tracking/qpbo.h
         include/tracking/dynamics_handler.h
@@ -151,7 +149,6 @@ target_link_libraries(tracking viso2)
 # Subdirectories
 # Add subfolder that also contain CMakeLists.txt
 add_subdirectory(apps)
-add_subdirectory(experimental)
 
 # Debug infos
 if(SHOW_PATH)
