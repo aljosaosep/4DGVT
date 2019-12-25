@@ -217,7 +217,7 @@ if __name__ == '__main__':
     parser.add_argument('--plot_output_dir', type=str, help='Plots output dir.')
     parser.add_argument('--evaluate_dir', type=str, help='Dir, containing result files that you want to evaluate')
     parser.add_argument('--result_dir_prefix', type=str, default='', help='Result dir prefix.')
-    parser.add_argument('--labels_path', type=str, default='../../labels/kitti_tracking/label_02',
+    parser.add_argument('--labels_path', type=str, default='label_02',
                         help='Labels path (default assumed in this repo)')
     parser.add_argument('--seqmap_path', type=str, default='evaluate_tracking.seqmap',
                         help='Sequence map path (optional; default evals whole tracking train)')

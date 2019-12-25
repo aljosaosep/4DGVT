@@ -309,6 +309,15 @@ class trackingEvaluation(object):
 				if idx >= len(f_data):
 					f_data += [[] for x in xrange(max(500, idx - len(f_data)))]
 
+				id_frame = (t_data.frame,t_data.track_id)
+				if id_frame in id_frame_cache and not loading_groundtruth and not loading_proposals:
+					print "track ids are not unique for sequence %d: frame %d" % (seq,t_data.frame)
+					print "track id %d occured at least twice for this frame" % t_data.track_id
+					print "Exiting..."
+					return False
+				id_frame_cache.append(id_frame)
+				f_data[t_data.frame].append(copy.copy(t_data))
+
 				if t_data.track_id not in ids and t_data.obj_type != "dontcare":
 					ids.append(t_data.track_id)
 					n_trajectories += 1
@@ -359,6 +368,7 @@ class trackingEvaluation(object):
 			self.n_gt_seq = n_trajectories_seq
 			self.n_gt_trajectories = n_trajectories
 		return True
+
 
 	def boxoverlap(self, a, b, criterion="union"):
 		"""
