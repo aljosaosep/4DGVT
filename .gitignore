@@ -1,4 +1,5 @@
+*.pyc
 build
 cmake-build-*
 .idea
-eval/*
+eval/data/*
