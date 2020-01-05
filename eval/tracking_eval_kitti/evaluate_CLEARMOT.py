@@ -9,7 +9,6 @@ import datetime, time
 from tabulate import tabulate
 
 classes = ['car', 'pedestrian']
-
 hook_data = []
 
 
@@ -40,15 +39,6 @@ def evaluate_folder(c, tr_path):
     # Evaluate CLEARMOT
     print('Running CLEARMOT evaluation ...')
     if tracking_eval.compute3rdPartyMetrics():
-        print('MOTA: %2.3f' % tracking_eval.MOTA)
-        print('MOTP: %2.3f' % tracking_eval.MOTP)
-        print('Recall: %2.3f' % tracking_eval.recall)
-        print('Precision: %2.3f' % tracking_eval.precision)
-        print('Mostly-lost: %2.3f' % tracking_eval.ML)
-        print('Partially-lost: %2.3f' % tracking_eval.PT)
-        print('Mostly-tracked: %2.3f' % tracking_eval.MT)
-        print('ID switches: %d' % tracking_eval.id_switches)
-        print('Fragments: %d' % tracking_eval.fragments)
 
         cmot_dict = {
             "mota": tracking_eval.MOTA,
@@ -61,9 +51,6 @@ def evaluate_folder(c, tr_path):
             "ids": tracking_eval.id_switches,
             "fragments": tracking_eval.fragments,
         }
-
-        # Append 'hooked' data, needed for range evaluation.
-        #hook_data.append(tracking_eval.hook_data)
 
     else:
         raise('Evaluation failed')
@@ -78,9 +65,6 @@ def evaluate_folder(c, tr_path):
     (ranges, recall_range) = range_eval.ComputeRecallRange(range_eval_data)
     (ranges, precision_range) = range_eval.ComputePrecisionRange(range_eval_data)
     (ranges, loc3d) = range_eval.Compute3Dloc(range_eval_data)
-
-    print ("------------ LOC3D -----------")
-    print (loc3d)
 
     return {
         "ranges":ranges,
@@ -119,7 +103,7 @@ def plot_metric(export_dict, metric_name):
 
 def plot_cat(dict, cat, do_x_title=False, output_dir=None):
     fig_size = (4, 4)
-    fig = plt.figure(figsize=fig_size)
+    plt.figure(figsize=fig_size)
 
     ax1 = plt.subplot(211)
     ax1.set_ylabel('Recall')
@@ -161,9 +145,9 @@ def export_table(export_dict, categ_name="NA", output_dir=None):
 
         table.sort(key=lambda x: x[2], reverse=True) # 2 ... MOTA
         tab_latex = tabulate(table, headers=header, tablefmt="latex", floatfmt=".2f")
-        print("------------------------")
-        print("Table: %s" % title)
-        print(tab_latex)
+        # print("------------------------")
+        # print("Table: %s" % title)
+        # print(tab_latex)
 
         with open(os.path.join(output_dir, title + '.tex'), "w") as f:
             f.write(tab_latex)
@@ -174,11 +158,11 @@ def evaluate_category(dest_dir, category, dir_prefix='', output_dir=None):
 
     }
 
-    user_specified_results = None
     if dest_dir is not None:
         dirs = os.listdir(dest_dir)
         #dirs.sort(key=MyFn)
         for result_dir in dirs:
+            print ("Evaluating: %s"%result_dir)
             user_specified_results = evaluate_folder(c=category, tr_path=os.path.join(dest_dir, result_dir, dir_prefix))
             export_dict[result_dir] = user_specified_results
 
@@ -222,6 +206,5 @@ if __name__ == '__main__':
     parser.add_argument('--seqmap_path', type=str, default='evaluate_tracking.seqmap',
                         help='Sequence map path (optional; default evals whole tracking train)')
     parser.add_argument('--do_not_timestamp', action='store_true', help='Dont timestamp out dirs')
-
     FLAGS = parser.parse_args()
     main(FLAGS)

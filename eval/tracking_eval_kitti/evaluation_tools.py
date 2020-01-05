@@ -143,10 +143,6 @@ class trackingEvaluation(object):
 		self.seq_res = []
 		self.seq_output = []
 
-		# Temporary!
-		#self.tp_ = 0
-		#self.fn_ = 0
-
 
 		# this should be enough to hold all groundtruth trajectories
 		# is expanded if necessary and reduced in any case
@@ -189,7 +185,7 @@ class trackingEvaluation(object):
 		return True
 
 
-	def loadTracker(self, evaluating_clearmot=False):
+	def loadTracker(self):
 		"""Helper function to load tracker data"""
 		try:
 			# DBG
@@ -207,7 +203,6 @@ class trackingEvaluation(object):
 	def loadProposals(self):
 		"""Helper function to load object-proposals data"""
 		try:
-			# print "Loading: %s"%self.t_path
 			if not self._loadData(self.t_path, cls=self.cls, loading_groundtruth=False):
 				# print "Failed to load tracker data."
 				return False
@@ -238,11 +233,7 @@ class trackingEvaluation(object):
 
 		# Load data for each subsequence
 		for seq, s_name in enumerate(self.sequence_name):
-
-			# print ('Loading seq: %s'%s_name)
-
 			# Open the result file
-			i = 0
 			filename = os.path.join(root_dir, "%s.txt" % s_name)
 			f = open(filename, "r")
 
@@ -824,13 +815,7 @@ def range_analysis():
 				data['bins'][idx]['dist2d'] += gt.distance
 				data['bins'][idx]['dist3d'] += gt.distance3d
 
-				# TODO: ADD BBOXES
 				add_bbox(data, idx, track, 'tp_bboxes')
-				# tp_bboxes = data['bins'][idx]['tp_bboxes']
-				# if track.frame in tp_bboxes:
-				# 	tp_bboxes[track.frame].append([track.x1, track.y1, track.x2, track.y2])
-				# else:
-				# 	tp_bboxes[track.frame] = [[track.x1, track.y1, track.x2, track.y2]]
 
 			elif event == 'fp':
 				add_bbox(data, idx, track, 'fp_bboxes')
