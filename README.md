@@ -45,7 +45,7 @@ Further instructions and descripton of the label format will be avalible soon. U
 
 ### Evaluation toolkit
 * Proposal evaluation:
-  * Pyton 3.x (for running `eval_single_image_proposals.py`)
+  * Python 3.x (for running `eval_single_image_proposals.py`)
   * pycocotools
   * import glob
   * matplotlib
