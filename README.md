@@ -1,53 +1,68 @@
 # WARNING: THIS INSTRUCTIONS ARE STILL BEING WRITTEN. STAY TUNED.
 
 # 4D Generic Video Object Proposals
-# Track, then Decide: Category-Agnostic Vision-based Multi-Object Tracking
 
-This repository contains code for the work as described in
-
-**Track, then Decide: Category-Agnostic Vision-based Multi-Object Tracking. ICRA 2018. (https://arxiv.org/pdf/1712.07920.pdf)**
-
-By [Aljosa Osep](https://www.vision.rwth-aachen.de/person/13/), [Wolfgang Mehner](https://www.vision.rwth-aachen.de/person/7/), [Paul Voigtlaender](https://www.vision.rwth-aachen.de/person/197/), [Bastian Leibe](https://www.vision.rwth-aachen.de/person/1/), Computer Vision Group, RWTH Aachen University
-
-and 
+This repository contains code, experimental data and **oxford-unknown** dataset for the work as described in
 
 **4D Generic Video Object Proposals (https://arxiv.org/pdf/1901.09260.pdf)**
 
 By [Aljosa Osep](https://www.vision.rwth-aachen.de/person/13/), [Paul Voigtlaender](https://www.vision.rwth-aachen.de/person/197/), Mark Weber, [Jonathon Luiten](https://www.vision.rwth-aachen.de/person/216/), [Bastian Leibe](https://www.vision.rwth-aachen.de/person/1/), Computer Vision Group, RWTH Aachen University
 
-## Demo  Video
+## Demo  Videos
 * [CAMOT video (older version)](https://youtu.be/HYXzHuD4AKI)
-* 4DGVT videos coming soon!
+* [CAMOT with Mask R-CNN](https://drive.google.com/open?id=1DlWWBcBTqBSPXY2c8UxdszruQcvNk8wn)
+* [4DGVT video](https://drive.google.com/file/d/1gT1JqUJcN-pTm3cCKklBqv1Xf_eqAe4_/view?usp=sharing)
+
+
+## Oxford-unknown dataset
+
+For the labeling process, we manually selected 150 images of the [Oxford RobotCar dataset](https://robotcar-dataset.robots.ox.ac.uk/). The subset of images we labeled is available [here](https://drive.google.com/file/d/1WYwQD-FKj3xcgzEN7NTwqnJu7OS-UHxR/view?usp=sharing). 
+
+We labeled 1,494 bounding boxes (1,081 *known*, 413 *unknown*) covering the visible portions of objects (non-amodal) by clicking the extremal points.
+
+*Known* labeled classes (those that overlap with the [COCO](http://cocodataset.org/#home) classes) are *car, person, bike* and *bus*. In addition, we labeled several object classes that are not present in the COCO dataset, labeled as *unknown* objects. Most notable object classes in the unknown set are the following: *signage, pole, stone road sign, traffic cone, street sign, rubbish bin, transformer, post box, booth* and *stroller*. 
+
+| **Category** | Car | Person | Bike | Bus | Unknown | All | 
+|--|--|--|--|--|--|--|--|
+| **#instances** | 599 | 354 | 78 | 50 | 413 | 1494 | 
+| **Portion** | 40.1% | 23.1% | 5.2% | 3.3% | 27.6% | 100% | 
+
+### Baselines
+We evaluated the performance of several methods on both known and unknown splits, see our paper for the details. All results will be available for download soon.
+
+### Labels
+Please find labels in `$REPO/eval/oxford_labels`. Labels are stored using JSON format. To evaluate recall, use the script `$REPO/eval/eval_single_image_proposals.py`. To see how to use this script, take a look at `$REPO/eval/run_evaluation.sh`.
+
 ## Prerequisite
 
-In order to run the code, your setup has to meet the following minimum requirements (tested versions in parentheses. Other versions might work, too):
+In order to run the video object proposal generator code, your setup has to meet the following minimum requirements (tested versions in parentheses. Other versions might work, too):
 * cmake (tested with 3.9.6, earlier versions should work too)
 * GCC 5.4.0
 * Libs:
   * Eigen (3.x)
   * Boost (1.55 or later)
   * OpenCV (3.0.0 + OpenCV contrib)
-  * PCL (1.8.0) (it was reported to work with 1.9.x as well)
+  * PCL (tested on 1.8.0 and 1.9.x)
 
 ## Install
 
 ### Data
-Note: any other paths will do too, you will just need to adapt for that in the `$REPO/script/exec_tracker.sh`
+Note: any other paths will do too, you will need to adapt for that in the `$REPO/script/exec_tracker.sh`
 
 0. Download [KITTI tracking dataset](http://www.cvlibs.net/datasets/kitti/eval_tracking.php) and place it to `/home/${USER}/data/kitti_tracking`
 0. Download [precomputed segmentations](https://drive.google.com/open?id=1AmDVzanSeHvmgJ4nh36jByOH-qIsib_2) we provide for KITTI tracking dataset, unzip to `/home/${USER}/data/kitti_tracking/preproc`
 0. Clone this repo to `/home/${USER}/projects`
 
-### Compiling the Code Using CMake
+### Compiling the code Using CMake
 0.  `mkdir build && cd build`
 0.  `cmake ..`
 0.  `make all`
 
-### Running the Tracker
+### Running the tracker
 0.  Enter `$REPO/script/`
 0.  Execute `exec_tracker.sh`
 
-### Tracker Execution Script Settings
+### Tracker execution script settings
 * `SEGM_INPUTS` - Specify which pre-computed segmentations to use -- Mask Proposal R-CNN (`mprcnn_coco`; recommended), Sharpmask (`sharpmask_coco`), Mask R-CNN fine-tuned on KITTI (`mrcnn_tuned`) 
 * `INF_MODEL` - Specify which model should be used for inference - `4DGVT` (recommended) or `CAMOT`.
 * `INPUT_CONF_THRESH` - Detection/proposal score threshold. In case it is set to `0.8` or more, you will be only forwarding confident detections.
@@ -75,13 +90,13 @@ Note: any other paths will do too, you will just need to adapt for that in the `
 * Additional remarks about CAMOT
     * TODO
 
-* Run the tracker in `release` mode (otherwise it will be slow).
+* Run the tracker in `release` mode (otherwise, it will be slow).
 
-If you have any issues or questions about the code, please contact me https://www.vision.rwth-aachen.de/person/13/
+If you have any issues or questions about this repository, please contact me at aljosa (dot) osep (at) tum.de
 
 ## Citing
 
-If you find the tracker useful in your research, please consider citing:
+If you find this repository useful in your research, please cite:
 
     @article{Osep18ICRA,
       author = {O\v{s}ep, Aljo\v{s}a and Mehner, Wolfgang and Voigtlaender, Paul and Leibe, Bastian},
@@ -93,13 +108,26 @@ If you find the tracker useful in your research, please consider citing:
     @article{Osep19arxiv,
       author = {O\v{s}ep, Aljo\v{s}a and Voigtlaender, Paul and Weber, Mark and Luiten, Jonathon and Leibe, Bastian},
       title = {4D Generic Video Object Proposals},
-      journal = {arXiv preprint	arXiv:1901.09260},
+      journal = {arXiv preprint arXiv:1901.09260},
       year = {2019}
     }
 
+When using oxford-unknown labels, please cite the original dataset:
+
+    @article{Maddern17IJRR,  
+      Author = {Will Maddern and Geoff Pascoe and Chris Linegar and Paul Newman},  
+      Title = {{1 Year, 1000km: The Oxford RobotCar Dataset}},  
+      Journal = {The International Journal of Robotics Research (IJRR)},  
+      Volume = {36},  
+      Number = {1},  
+      Pages = {3-15},  
+      Year = {2017} 
+    }
+    
+
 ## Potential Issues
-* In case you want to use self-compiled libs, you may need to specify these paths (eg. edit cmake cache or use `ccmake`): `PCL_DIR`, `OpenCV_DIR`, `BOOST_ROOT`
-* `CMake Error Unable to find the requested Boost libraries. Unable to find the Boost header files.  Please set BOOST_ROOT to the root directory containing Boost or BOOST_INCLUDEDIR to the directory containing Boost's headers.` For certain combinations of boost and cmake versions, it may happen cmake will not find all dependencies. Typically this will happen when using newer boost and older cmake; try using most recent cmake to avoid this issue.
+* In case you want to use self-compiled libs, you may need to specify these paths (e.g., edit CMake cache or use `ccmake`): `PCL_DIR`, `OpenCV_DIR`, `BOOST_ROOT`
+* `CMake Error Unable to find the requested Boost libraries. Unable to find the Boost header files.  Please set BOOST_ROOT to the root directory containing Boost or BOOST_INCLUDEDIR to the directory containing Boost's headers.` For certain combinations of boost and CMake versions, it may happen CMake will not find all dependencies. Typically this will happen when using newer boost and older CMake; try using the most recent CMake to avoid this issue.
 
 ## License
 
