@@ -8,6 +8,12 @@ This repository contains code, experimental data and **oxford-unknown** dataset 
 
 By [Aljosa Osep](https://www.vision.rwth-aachen.de/person/13/), [Paul Voigtlaender](https://www.vision.rwth-aachen.de/person/197/), Mark Weber, [Jonathon Luiten](https://www.vision.rwth-aachen.de/person/216/), [Bastian Leibe](https://www.vision.rwth-aachen.de/person/1/), Computer Vision Group, RWTH Aachen University
 
+## TODO
+* Upload sequences surrounding labeled frames of Oxford Dataset
+* Upload result files
+* Make sure that the uploaded verson of the tracker and configs reproduce the paper results
+* Detailed instructions 
+
 ## Demo  Videos
 * [CAMOT video (older version)](https://youtu.be/HYXzHuD4AKI)
 * [CAMOT with Mask R-CNN](https://drive.google.com/open?id=1DlWWBcBTqBSPXY2c8UxdszruQcvNk8wn)
@@ -33,7 +39,23 @@ We evaluated the performance of several methods on both known and unknown splits
 ### Labels
 Please find labels in `$REPO/eval/oxford_labels`. Labels are stored using JSON format. To evaluate recall, use the script `$REPO/eval/eval_single_image_proposals.py`. To see how to use this script, take a look at `$REPO/eval/run_evaluation.sh`.
 
+Further instructions and descripton of the label format will be avalible soon. Until then, we recommend to step through `eval_single_image_proposals.py` script to understand the format.
+
 ## Prerequisite
+
+### Evaluation toolkit
+* Proposal evaluation:
+  * Pyton 3.x (for running `eval_single_image_proposals.py`)
+  * pycocotools
+  * import glob
+  * matplotlib
+  * numpy
+* Tracking evaluation (in addition):
+  * Python 2.7 (required by tracking evaluation legacy scripts)
+  * munkres
+  * tabulate
+
+### Video Object Proposal Generator
 
 In order to run the video object proposal generator code, your setup has to meet the following minimum requirements (tested versions in parentheses. Other versions might work, too):
 * cmake (tested with 3.9.6, earlier versions should work too)
