@@ -2,4 +2,4 @@
 build
 cmake-build-*
 .idea
-eval/data/*
+eval/results/*
