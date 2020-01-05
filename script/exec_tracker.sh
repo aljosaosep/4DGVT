@@ -7,7 +7,7 @@
 SEQUENCES=$(seq 0 20)
 
 # Tracker settings
-SEGM_INPUTS=mrcnn_tuned # [ mrcnn_tuned | mprcnn_coco | sharpmask_coco ]
+SEGM_INPUTS=mprcnn_coco # [ mrcnn_tuned | mprcnn_coco | sharpmask_coco ]
 INF_MODEL="4DGVT" # [CAMOT|4DGVT]
 
 # Tracker parameters
@@ -15,7 +15,7 @@ INPUT_CONF_THRESH=0.8 # Detection/proposal score threshold. In case it is set to
 MAX_NUM_PROPOSALS=300 # Max. num. of proposals passed to the tracker
 
 # Processing settings
-MAX_PROC=4 # How many instances do you want to execute in parallel?
+MAX_PROC=5 # How many instances do you want to execute in parallel?
 
 if [ "${INF_MODEL}" == "CAMOT" ]; then
         echo "Using CAMOT model ..."
@@ -28,7 +28,7 @@ else
 fi
 
 # Data
-EXEC=/home/${USER}/projects/4DGVT/build/apps/CAMOT
+EXEC=/home/${USER}/projects/4DGVT/cmake-build-release/apps/prop4D
 KITTI_PATH=/home/${USER}/data/kitti_tracking
 DATA_PATH=${KITTI_PATH}/training
 PREPROC_DIR=${KITTI_PATH}/preproc
