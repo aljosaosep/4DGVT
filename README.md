@@ -3,6 +3,7 @@
 # 4D Generic Video Object Proposals
 
 ![Alt text](img/4dgvt.png?raw=true "Our method.")
+![Alt text](img/3dviz.png?raw=true "Our method.")
 
 This repository contains code, experimental data and **oxford-unknown** dataset for the work as described in
 
