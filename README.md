@@ -1,4 +1,4 @@
-# WARNING: THIS INSTRUCTIONS ARE STILL BEING WRITTEN. STAY TUNED.
+##### WARNING: THIS INSTRUCTIONS ARE STILL BEING WRITTEN. STAY TUNED.
 
 # 4D Generic Video Object Proposals
 
@@ -28,10 +28,10 @@ We labeled 1,494 bounding boxes (1,081 *known*, 413 *unknown*) covering the visi
 
 *Known* labeled classes (those that overlap with the [COCO](http://cocodataset.org/#home) classes) are *car, person, bike* and *bus*. In addition, we labeled several object classes that are not present in the COCO dataset, labeled as *unknown* objects. Most notable object classes in the unknown set are the following: *signage, pole, stone road sign, traffic cone, street sign, rubbish bin, transformer, post box, booth* and *stroller*. 
 
-| **Category** | Car | Person | Bike | Bus | Unknown | All | 
-|--|--|--|--|--|--|--|--|
-| **#instances** | 599 | 354 | 78 | 50 | 413 | 1494 | 
-| **Portion** | 40.1% | 23.1% | 5.2% | 3.3% | 27.6% | 100% | 
+| **Category**   |  Car          | Person | Bike  | Bus   | Unknown | All   | 
+| -------------- |:-------------:|:------:|:------:|:------:|:--------:|:------:|
+| **#instances** | 599           | 354    | 78    | 50    | 413     | 1494  | 
+| **Portion**    | 40.1%         | 23.1%  | 5.2%  | 3.3%  | 27.6%   | 100%  | 
 
 ### Baselines
 We evaluated the performance of several methods on both known and unknown splits, see our paper for the details. All results will be available for download soon.
@@ -41,13 +41,11 @@ Please find labels in `$REPO/eval/oxford_labels`. Labels are stored using JSON f
 
 Further instructions and descripton of the label format will be avalible soon. Until then, we recommend to step through `eval_single_image_proposals.py` script to understand the format.
 
-## Prerequisite
+### Prerequisite
 
-### Evaluation toolkit
 * Proposal evaluation:
   * Python 3.x (for running `eval_single_image_proposals.py`)
   * pycocotools
-  * import glob
   * matplotlib
   * numpy
 * Tracking evaluation (in addition):
@@ -55,8 +53,8 @@ Further instructions and descripton of the label format will be avalible soon. U
   * munkres
   * tabulate
 
-### Video Object Proposal Generator
-
+## Video Object Proposal Generator (Tracker)
+### Prerequisite
 In order to run the video object proposal generator code, your setup has to meet the following minimum requirements (tested versions in parentheses. Other versions might work, too):
 * cmake (tested with 3.9.6, earlier versions should work too)
 * GCC 5.4.0
@@ -66,7 +64,6 @@ In order to run the video object proposal generator code, your setup has to meet
   * OpenCV (3.0.0 + OpenCV contrib)
   * PCL (tested on 1.8.0 and 1.9.x)
 
-## Install
 
 ### Data
 Note: any other paths will do too, you will need to adapt for that in the `$REPO/script/exec_tracker.sh`
@@ -75,7 +72,7 @@ Note: any other paths will do too, you will need to adapt for that in the `$REPO
 0. Download [precomputed segmentations](https://drive.google.com/open?id=1AmDVzanSeHvmgJ4nh36jByOH-qIsib_2) we provide for KITTI tracking dataset, unzip to `/home/${USER}/data/kitti_tracking/preproc`
 0. Clone this repo to `/home/${USER}/projects`
 
-### Compiling the code Using CMake
+### Compiling the code
 0.  `mkdir build && cd build`
 0.  `cmake ..`
 0.  `make all`
@@ -90,7 +87,7 @@ Note: any other paths will do too, you will need to adapt for that in the `$REPO
 * `INPUT_CONF_THRESH` - Detection/proposal score threshold. In case it is set to `0.8` or more, you will be only forwarding confident detections.
 * `MAX_NUM_PROPOSALS` - Max. proposals fed to track generator per frame. More proposals -> slower, higher recall. Not recommended to be set above 500.
 
-## Remarks
+#### Remarks
 
 * Running CAMOT vs. 4DGVT
     * TODO
