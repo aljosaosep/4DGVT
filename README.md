@@ -27,6 +27,9 @@ By [Aljosa Osep](https://www.vision.rwth-aachen.de/person/13/), [Paul Voigtlaend
 
 For the labeling process, we manually selected 150 images of the [Oxford RobotCar dataset](https://robotcar-dataset.robots.ox.ac.uk/). The subset of images we labeled is available [here](https://drive.google.com/file/d/1WYwQD-FKj3xcgzEN7NTwqnJu7OS-UHxR/view?usp=sharing). 
 
+Image sequences are available here (temporal neighborhood of the annotated frames) are available [here](https://drive.google.com/file/d/1BfY92M8sQxCf4RUTjSS6VbPsad1X6FGN/view?usp=sharing)
+Additional data for sequences (precomputed proposals) are available [here](https://drive.google.com/file/d/1gVQVIPOyM4ubi7gflI15wWdQoZfaL4Hf/view?usp=sharing)
+
 We labeled 1,494 bounding boxes (1,081 *known*, 413 *unknown*) covering the visible portions of objects (non-amodal) by clicking the extremal points.
 
 *Known* labeled classes (those that overlap with the [COCO](http://cocodataset.org/#home) classes) are *car, person, bike* and *bus*. In addition, we labeled several object classes that are not present in the COCO dataset, labeled as *unknown* objects. Most notable object classes in the unknown set are the following: *signage, pole, stone road sign, traffic cone, street sign, rubbish bin, transformer, post box, booth* and *stroller*. 
