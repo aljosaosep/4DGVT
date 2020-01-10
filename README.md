@@ -12,10 +12,10 @@ This repository contains code, experimental data and **oxford-unknown** dataset 
 By [Aljosa Osep](https://www.vision.rwth-aachen.de/person/13/), [Paul Voigtlaender](https://www.vision.rwth-aachen.de/person/197/), Mark Weber, [Jonathon Luiten](https://www.vision.rwth-aachen.de/person/216/), [Bastian Leibe](https://www.vision.rwth-aachen.de/person/1/), Computer Vision Group, RWTH Aachen University
 
 ## TODO
-* Upload sequences surrounding labeled frames of Oxford Dataset
-* Upload result files
-* Make sure that the uploaded verson of the tracker and configs reproduce the paper results
-* Detailed instructions 
+- [x] Upload sequences surrounding labeled frames of Oxford Dataset
+- [x] Upload result files
+- [ ] Make sure that the uploaded verson of the tracker and configs reproduce the paper results
+- [ ] Detailed instructions 
 
 ## Demo  Videos
 * [CAMOT video (older version)](https://youtu.be/HYXzHuD4AKI)
