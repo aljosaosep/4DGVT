@@ -27,8 +27,9 @@ By [Aljosa Osep](https://www.vision.rwth-aachen.de/person/13/), [Paul Voigtlaend
 
 For the labeling process, we manually selected 150 images of the [Oxford RobotCar dataset](https://robotcar-dataset.robots.ox.ac.uk/). The subset of images we labeled is available [here](https://drive.google.com/file/d/1WYwQD-FKj3xcgzEN7NTwqnJu7OS-UHxR/view?usp=sharing). 
 
-Image sequences are available here (temporal neighborhood of the annotated frames) are available [here](https://drive.google.com/file/d/1BfY92M8sQxCf4RUTjSS6VbPsad1X6FGN/view?usp=sharing)
-Additional data for sequences (precomputed proposals) are available [here](https://drive.google.com/file/d/1gVQVIPOyM4ubi7gflI15wWdQoZfaL4Hf/view?usp=sharing)
+Image sequences are available (temporal neighborhood of the annotated frames) [here](https://drive.google.com/file/d/1BfY92M8sQxCf4RUTjSS6VbPsad1X6FGN/view?usp=sharing).
+
+Additional data for sequences (precomputed proposals) are available [here](https://drive.google.com/file/d/1gVQVIPOyM4ubi7gflI15wWdQoZfaL4Hf/view?usp=sharing).
 
 We labeled 1,494 bounding boxes (1,081 *known*, 413 *unknown*) covering the visible portions of objects (non-amodal) by clicking the extremal points.
 
@@ -68,7 +69,7 @@ In order to run the video object proposal generator code, your setup has to meet
   * Eigen (3.x)
   * Boost (1.55 or later)
   * OpenCV (3.0.0 + OpenCV contrib)
-  * PCL (tested on 1.8.0 and 1.9.x)
+  * PCL (tested on 1.8.0 and 1.9.x) (note: requires FLANN)
 
 
 ### Data
