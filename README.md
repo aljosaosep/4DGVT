@@ -124,18 +124,18 @@ If you have any issues or questions about this repository, please contact me at 
 
 If you find this repository useful in your research, please cite:
 
-    @article{Osep18ICRA,
+    @inproceedings{Osep18ICRA,
       author = {O\v{s}ep, Aljo\v{s}a and Mehner, Wolfgang and Voigtlaender, Paul and Leibe, Bastian},
       title = {Track, then Decide: Category-Agnostic Vision-based Multi-Object Tracking},
-      journal = {ICRA},
+      booktitle = {ICRA},
       year = {2018}
     }
 
-    @article{Osep19arxiv,
+    @inproceedings{Osep19ICRA,
       author = {O\v{s}ep, Aljo\v{s}a and Voigtlaender, Paul and Weber, Mark and Luiten, Jonathon and Leibe, Bastian},
       title = {4D Generic Video Object Proposals},
-      journal = {arXiv preprint arXiv:1901.09260},
-      year = {2019}
+      booktitle = ICRA,
+      year = {2020}
     }
 
 When using oxford-unknown labels, please cite the original dataset:
