@@ -3,11 +3,13 @@
 # This script executes the video-proposal generator/tracker on sequences of KITTI tracking dataset.
 # You can specify which KITTI sequences you want to process (0-20) and how many do you want to process in parallel.
 
+SCRIPT_DIR=`dirname "$0"`
+
 # Specify which KITTI sequence to execute. By default, all 20.
-SEQUENCES=$(seq 0 20)
+SEQUENCES=(19) #$(seq 0 20)
 
 # Tracker settings
-SEGM_INPUTS=mprcnn_coco # [ mrcnn_tuned | mprcnn_coco | sharpmask_coco ]
+SEGM_INPUTS=mrcnn_tuned # [ mrcnn_tuned | mprcnn_coco | sharpmask_coco ]
 INF_MODEL="4DGVT" # [CAMOT|4DGVT]
 
 # Tracker parameters
@@ -19,7 +21,7 @@ MAX_PROC=5 # How many instances do you want to execute in parallel?
 
 if [ "${INF_MODEL}" == "CAMOT" ]; then
         echo "Using CAMOT model ..."
-        CFG="../config/CAMOT.cfg"
+        CFG="${SCRIPT_DIR}../config/CAMOT.cfg"
 elif [ "${INF_MODEL}" == "4DGVT" ]; then
         echo "Using 4DGVT model ..."
 	CFG="../config/4DGVT.cfg"
@@ -28,8 +30,8 @@ else
 fi
 
 # Data
-EXEC=/home/${USER}/projects/4DGVT/cmake-build-release/apps/prop4D
-KITTI_PATH=/home/${USER}/data/kitti_tracking
+EXEC=/home/${USER}/Projects/4DGVT/cmake-build-release/apps/prop4D
+KITTI_PATH=/home/${USER}/Data/kitti_tracking
 DATA_PATH=${KITTI_PATH}/training
 PREPROC_DIR=${KITTI_PATH}/preproc
 SEQUENCES_DIR=${DATA_PATH}/image_02/*
@@ -88,12 +90,13 @@ for SEQUENCE in ${SEQUENCES[@]}; do
 
 	--debug_level 3"
 
-	${RUN_STR} &
-	let div="((SEQUENCE+1))%${MAX_PROC}"
- 	if [[ $div -eq 0 ]]; then # This ensoures only 4 jobs are being processed in parallel
-		echo "Waiting .. ";
-		wait;
- 	fi
+	echo $RUN_STR
+	#${RUN_STR} &
+	#let div="((SEQUENCE+1))%${MAX_PROC}"
+ 	#if [[ $div -eq 0 ]]; then # This ensoures only 4 jobs are being processed in parallel
+	#	echo "Waiting .. ";
+	#	wait;
+ 	#fi
 done
 
 echo "All sequences done!"
