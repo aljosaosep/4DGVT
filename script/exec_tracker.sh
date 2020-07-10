@@ -68,11 +68,12 @@ for SEQUENCE in ${SEQUENCES[@]}; do
 	PROP=${PROPOSALS_DIR}/${SEQ_NAME}/${GENERIC_FILE_NAME}.json
 	CALIB=${DATA_PATH}/calib/${SEQ_NAME}.txt
 	JSON=${PREPROC_DIR}/kitti_json/${SEGM_INPUTS}/${SEQ_NAME}/${GENERIC_FILE_NAME}.json
-
+	LID=${DATA_PATH}/velodyne/${SEQ_NAME}/${GENERIC_FILE_NAME}.bin
 	RUN_STR="$EXEC \
 	--config_parameters $CFG \
 	--left_image_path $LIMG \
 	--right_image_path $RIMG \
+	--velodyne_path $LID \
 	--left_disparity_path $LDMP \
 	--object_proposals_path $PROP \
 	--segmentations_json_file $JSON \
