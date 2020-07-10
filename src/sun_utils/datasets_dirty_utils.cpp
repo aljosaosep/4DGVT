@@ -83,6 +83,58 @@ namespace SUN {
                 free(D2_data);
             }
 
+            pcl::PointCloud<pcl::PointXYZRGBA>::Ptr
+            RawLiDARCloudToImageAlignedAndOrganized(pcl::PointCloud<pcl::PointXYZRGBA>::ConstPtr raw_lidar_cloud,
+                                                    const Eigen::Matrix4d &T_lidar_to_cam,
+                                                    const cv::Mat &image,
+                                                    const SUN::utils::Camera &camera) {
+
+                /// Transform LiDAR cloud to camera space
+                pcl::PointCloud<pcl::PointXYZRGBA>::Ptr lidar_cloud_cam_space(new pcl::PointCloud<pcl::PointXYZRGBA>);
+
+                pcl::transformPointCloud(*raw_lidar_cloud, *lidar_cloud_cam_space, T_lidar_to_cam);
+
+                /// Make organized image-aligned cloud
+                // Take 'visible' portion of the points, append RGB (from image)
+                pcl::PointCloud<pcl::PointXYZRGBA>::Ptr tmp_cloud(new pcl::PointCloud<pcl::PointXYZRGBA>);
+                tmp_cloud->points.resize(image.rows * image.cols);
+                tmp_cloud->height = image.rows;
+                tmp_cloud->width = image.cols;
+                tmp_cloud->is_dense = false;
+
+                // Init with NaNs
+                for (int y = 0; y < image.rows; y++) {
+                    for (int x = 0; x < image.cols; x++) {
+                        pcl::PointXYZRGBA p;
+                        p.x = p.y = p.z = std::numeric_limits<float>::quiet_NaN();
+                        p.r = p.g = p.b = p.a = std::numeric_limits<uint8_t>::quiet_NaN();
+                        tmp_cloud->at(x, y) = p;
+                    }
+                }
+
+                // Project all LiDAR points to image, append color, add to organized cloud
+                for (const auto &pt:lidar_cloud_cam_space->points) {
+                    Eigen::Vector4d p_vel(pt.x, pt.y, pt.z, 1.0);
+                    if (pt.z < 0) continue;
+
+                    Eigen::Vector3i proj_velodyne = camera.CameraToImage(p_vel);
+                    const int u = proj_velodyne[0];
+                    const int v = proj_velodyne[1];
+
+                    if (u >= 0 && v >= 0 && u < image.cols && v < image.rows) {
+                        auto p_new = pt;
+                        p_new.r = static_cast<uint8_t>(image.at<cv::Vec3b>(v, u)[2]);
+                        p_new.g = static_cast<uint8_t>(image.at<cv::Vec3b>(v, u)[1]);
+                        p_new.b = static_cast<uint8_t>(image.at<cv::Vec3b>(v, u)[0]);
+                        p_new.a = 255;
+                        tmp_cloud->at(u, v) = p_new;
+                    }
+                }
+
+                return tmp_cloud;
+            }
+
+
             // -------------------------------------------------------------------------------
             // +++ DATASET ASSISTANT IMPLEMENTATION +++
             // -------------------------------------------------------------------------------
@@ -214,7 +266,7 @@ namespace SUN {
                 // -------------------------------------------------------------------------------
                 // +++ OPTIONAL STUFF +++
                 // -------------------------------------------------------------------------------
-                /// Disparity map
+                /// Disparity map + stereo point cloud
                 pcl::PointCloud<pcl::PointXYZRGBA>::Ptr point_cloud_ptr = nullptr;
                 if (this->variables_map_.count("left_disparity_path")) {
                     if (!(this->RequestDisparity(current_frame, true))) {
@@ -234,6 +286,41 @@ namespace SUN {
                                                                             left_point_cloud_);
                     this->got_left_point_cloud_ = true;
                     point_cloud_ptr = left_point_cloud_;
+                }
+
+                // LiDAR point cloud
+                if (!this->variables_map_.count("velodyne_path")) {
+                    printf("DatasetAssitantDirty error: no velodyne_path given!\r\n");
+                    return false;
+                }
+
+                char pcl_path_buff[MAX_PATH_LEN];
+                snprintf(pcl_path_buff, MAX_PATH_LEN, this->variables_map_["velodyne_path"].as<std::string>().c_str(),
+                         current_frame);
+
+                // Point cloud
+                if (!boost::filesystem::exists(pcl_path_buff)) {
+                    printf("PCL path %s does not exist.\r\n", pcl_path_buff);
+                    return false;
+                }
+                auto velodyne_cloud = SUN::utils::IO::ReadLaserPointCloudKITTI(pcl_path_buff);
+                if (velodyne_cloud != nullptr) {
+
+                    // Raw cloud
+                    this->lidar_point_cloud_ = velodyne_cloud;
+
+                    // Image-aligned cloud
+                    Eigen::Matrix4d Tr_cam0_cam2 = calibration.GetTr_cam0_cam2(); // Translation cam0 -> cam2
+                    Eigen::Matrix<double, 4, 4> Tr_laser_cam2 = Tr_cam0_cam2 * calibration.getR_rect() * calibration.getTr_velo_cam();
+
+                    left_point_cloud_ = RawLiDARCloudToImageAlignedAndOrganized(
+                            lidar_point_cloud_, Tr_laser_cam2,
+                            left_image_, left_camera_
+                            );
+
+                    //pcl::transformPointCloud(*lidar_point_cloud_, *lidar_point_cloud_, Tr_laser_cam2);
+                    //pcl::transformPointCloud(*lidar_point_cloud_, *left_point_cloud_, Tr_laser_cam2);
+
                 }
 
                 return true;

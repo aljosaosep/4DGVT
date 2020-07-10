@@ -102,6 +102,8 @@ namespace SUN {
                 bool got_left_point_cloud_ = false;
                 pcl::PointCloud<pcl::PointXYZRGBA>::Ptr left_point_cloud_;
 
+                pcl::PointCloud<pcl::PointXYZRGBA>::Ptr lidar_point_cloud_;
+
 
                 // Cameras, calib
                 bool got_left_camera_ = false;
