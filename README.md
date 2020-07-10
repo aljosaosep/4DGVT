@@ -68,8 +68,8 @@ In order to run the video object proposal generator code, your setup has to meet
 * Libs:
   * Eigen (3.x)
   * Boost (1.55 or later)
-  * OpenCV (3.0.0 + OpenCV contrib)
-  * PCL (tested on 1.8.0 and 1.9.x) (note: requires FLANN)
+  * OpenCV (tested with 3.x, 4.x)
+  * PCL (tested on 1.8.0 and 1.9.x) (note: requires FLANN and VTK for the 3D visualizer)
 
 
 ### Data
@@ -154,6 +154,7 @@ When using oxford-unknown labels, please cite the original dataset:
 ## Potential Issues
 * In case you want to use self-compiled libs, you may need to specify these paths (e.g., edit CMake cache or use `ccmake`): `PCL_DIR`, `OpenCV_DIR`, `BOOST_ROOT`
 * `CMake Error Unable to find the requested Boost libraries. Unable to find the Boost header files.  Please set BOOST_ROOT to the root directory containing Boost or BOOST_INCLUDEDIR to the directory containing Boost's headers.` For certain combinations of boost and CMake versions, it may happen CMake will not find all dependencies. Typically this will happen when using newer boost and older CMake; try using the most recent CMake to avoid this issue.
+* I had issues compiling PCL with VTK 9.x, recommending to use VTK 8.x. 
 
 ## License
 
