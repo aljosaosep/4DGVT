@@ -26,7 +26,7 @@ link_directories(${PCL_LIBRARY_DIRS})
 set(Boost_USE_STATIC_LIBS OFF)
 set(Boost_USE_MULTITHREADED ON)
 set(Boost_USE_STATIC_RUNTIME OFF)
-find_package(Boost 1.55 COMPONENTS program_options thread system signals REQUIRED)
+find_package(Boost 1.55 COMPONENTS program_options thread system REQUIRED)
 
 if(Boost_FOUND)
     include_directories(${Boost_INCLUDE_DIRS})
