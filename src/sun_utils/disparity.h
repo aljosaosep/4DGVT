@@ -64,7 +64,7 @@ namespace SUN {
 
         bool IsValid(const int32_t v, const int32_t u) const { return disparity_map_.at<float>(v, u) >= 0; }
 
-        bool SetInvalid(const int32_t v, const int32_t u) { disparity_map_.at<float>(v, u) = -1; }
+        void SetInvalid(const int32_t v, const int32_t u) { disparity_map_.at<float>(v, u) = -1.0; }
 
         void ReadDisparityMap(const std::string file_name, unsigned int scaling = 256);
 
