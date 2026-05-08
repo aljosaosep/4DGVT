@@ -1,5 +1,3 @@
-##### WARNING: THIS INSTRUCTIONS ARE STILL BEING WRITTEN. STAY TUNED.
-
 # 4D Generic Video Object Proposals
 
 ![Alt text](img/4dgvt.png?raw=true "Our method.")
@@ -10,12 +8,6 @@ This repository contains code, experimental data and **oxford-unknown** dataset 
 **4D Generic Video Object Proposals (https://arxiv.org/pdf/1901.09260.pdf)**
 
 By [Aljosa Osep](https://www.vision.rwth-aachen.de/person/13/), [Paul Voigtlaender](https://www.vision.rwth-aachen.de/person/197/), Mark Weber, [Jonathon Luiten](https://www.vision.rwth-aachen.de/person/216/), [Bastian Leibe](https://www.vision.rwth-aachen.de/person/1/), Computer Vision Group, RWTH Aachen University
-
-## TODO
-- [x] Upload sequences surrounding labeled frames of Oxford Dataset
-- [x] Upload result files
-- [ ] Make sure that the uploaded verson of the tracker and configs reproduce the paper results
-- [ ] Detailed instructions 
 
 ## Demo  Videos
 * [CAMOT video (older version)](https://youtu.be/HYXzHuD4AKI)
@@ -96,8 +88,6 @@ Note: any other paths will do too, you will need to adapt for that in the `$REPO
 
 #### Remarks
 
-* Running CAMOT vs. 4DGVT
-    * TODO
 
 * Inputs to the tracker
     * You can use our [precomputed segmentations](https://drive.google.com/open?id=1AmDVzanSeHvmgJ4nh36jByOH-qIsib_2) for KITTI
@@ -112,9 +102,6 @@ Note: any other paths will do too, you will need to adapt for that in the `$REPO
         * **libviso2** - egomotion estimation (http://www.cvlibs.net/software/libviso/)
         * **nlohman::json** - json parser (https://github.com/nlohmann/json)
         * **maskApi** - COCO mask API for C (https://github.com/cocodataset/cocoapi)
-
-* Additional remarks about CAMOT
-    * TODO
 
 * Run the tracker in `release` mode (otherwise, it will be slow).
 
